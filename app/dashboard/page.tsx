@@ -1,8 +1,7 @@
-interface DashboardProps {}
-const Dashboard = (props: DashboardProps) => {
+const Dashboard = () => {
   return (
-    <div>
-        Hia
+    <div className="bg-black">
+        
     </div>
   );
 };

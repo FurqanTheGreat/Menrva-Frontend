@@ -1,17 +1,21 @@
-import "@/styles/globals.css";
-import { Metadata, Viewport } from "next";
-import clsx from "clsx";
-import { FloatingNavbar } from "./ui/Navbar";
-import { playfairDisplay } from "@/config/fonts";
-import { fontSans } from "@/config/fonts";
+import "./globals.css";
+import { Playfair_Display, Inter } from 'next/font/google'
 
+const playfair = Playfair_Display({
+  weight: ['400', '700'],
+  style: ['normal', 'italic'],
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-playfair'
+})
 
-export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "white" },
-    { media: "(prefers-color-scheme: dark)", color: "black" },
-  ],
-};
+const inter = Inter({
+  weight: ['100', '300', '600', '900'],
+  style: ['normal'],
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter'
+})
 
 export default function RootLayout({
   children,
@@ -22,10 +26,7 @@ export default function RootLayout({
     <html suppressHydrationWarning lang="en">
       <head />
       <body
-        className={clsx(
-          "min-h-screen bg-background font-sans antialiased",
-          fontSans.variable,
-        )}
+        className={`antialiased ${playfair.variable} ${inter.variable}`}
       >
 
               {children}

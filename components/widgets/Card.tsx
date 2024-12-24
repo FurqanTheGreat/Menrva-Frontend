@@ -11,7 +11,9 @@ const Card = (props: CardProps) => {
       className={
         "bg-white/10 w-[300px] relative rounded-lg overflow-hidden shadow-md " +
         props.className
-      }
+      } style={{
+      borderRadius: "10px"
+    }}
     >
       <Image
         alt={props.text}

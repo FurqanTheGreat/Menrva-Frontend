@@ -1,20 +1,18 @@
 "use client";
 import React from "react";
 import Link from "next/link";
-import { FloatingDockDemo } from "../ui/FloatingDock";
-import { Label } from "../../components/ui/label";
-import { Input } from "../../components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import {
-  IconBrandGithub,
-  IconBrandGoogle,
-  IconBrandOnlyfans,
-} from "@tabler/icons-react";
+import { FcGoogle } from "react-icons/fc";
+import { BiLogoFacebookSquare } from "react-icons/bi";
+import { IoLogoGithub } from "react-icons/io";
+import { BsMicrosoft, BsApple } from "react-icons/bs";
 
-import { useState } from "react"; 
+import { useState } from "react";
 
-export default function SignupFormDemo() {
-  const [active, setActive] = useState('hidden')
+export default function SignupForm() {
+  const [active, setActive] = useState("hidden");
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("Form submitted");
@@ -24,53 +22,108 @@ export default function SignupFormDemo() {
       <h1 className="font-[600] text-center md:text-left text-[36px] text-neutral-800">
         Create an account
       </h1>
-      <p className="text-neutral-800 text-center md:text-left">Already have an account? <span><Link href={"/login"} className=" text-[#0000EE] hover:underline ">Sign in</Link></span></p> 
+      <p className="text-neutral-800 text-center md:text-left">
+        Already have an account?{" "}
+        <span>
+          <Link href={"/login"} className=" text-[#0000EE] hover:underline ">
+            Sign in
+          </Link>
+        </span>
+      </p>
       <div className="bg-gradient-to-r from-transparent via-neutral-700 dark:via-neutral-300 to-transparent mt-8 h-[1px] w-full" />
 
       <form className="my-8 text-neutral-800" onSubmit={handleSubmit}>
-      <p className="text-neutral-800 font-semibold ">Sign up with email</p> <br />
-      <LabelInputContainer className="mb-4">
+        <p className="text-neutral-800 font-semibold ">Sign up with email</p>{" "}
+        <br />
+        <LabelInputContainer className="mb-4">
           <Label htmlFor="username">Username</Label>
-          <Input id="username" placeholder="taylor123" type="text" required/>
+          <Input id="username" placeholder="taylor123" type="text" required />
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="email">Email Address</Label>
-          <Input id="email" placeholder="projectmayhem@fc.com" type="email" required/>
+          <Input
+            id="email"
+            placeholder="projectmayhem@fc.com"
+            type="email"
+            required
+          />
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="password">Password</Label>
-          <Input id="password" placeholder="••••••••" type="password" required/>
-        </LabelInputContainer> <br />
-        <div className=" w-full flex justify-center items-center ">    
-        <button
-          className="bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-[75%] text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
-          type="submit"
-        >
-          Sign up &rarr;
-          <BottomGradient />
-        </button>
-        </div>  
+          <Input
+            id="password"
+            placeholder="••••••••"
+            type="password"
+            required
+          />
+        </LabelInputContainer>{" "}
+        <br />
+        <div className=" w-full flex justify-center items-center ">
+          <button
+            className="bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-[75%] text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
+            type="submit"
+          >
+            Sign up &rarr;
+            <BottomGradient />
+          </button>
+        </div>
         <div className="bg-gradient-to-r from-transparent via-neutral-700 dark:via-neutral-300 to-transparent my-8 h-[1px] w-full" />
-
         <div className="flex flex-col items-center space-y-6  ">
-        <FloatingDockDemo />
+          <button
+            className=" relative group/btn flex space-x-2 items-center justify-center w-[73%] text-center py-6 rounded-full px-2 text-black h-10 shadow-input border border-[#eaeaea] dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
+            type="submit"
+          >
+            {/* <img src="/google-icon-logo-svgrepo-com.svg" alt="Google Icon" width={24} height={24} /> */}
+            <FcGoogle className="h-[24px] w-[24px]" />
+            <span className="text-neutral-1000 dark:text-neutral-300 text-md">
+              Continue with Google
+            </span>
+            <BottomGradient />
+          </button>
+
+          <button
+            className=" relative group/btn flex space-x-2 items-center justify-center w-[73%] text-center py-6 rounded-full px-2 text-black h-10 shadow-input border border-[#eaeaea] dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
+            type="submit"
+          >
+            <BiLogoFacebookSquare className="h-[24px] w-[24px]" />
+            <span className="text-neutral-1000 dark:text-neutral-300 text-md">
+              Continue with Facebook
+            </span>
+            <BottomGradient />
+          </button>
+
+          <button
+            className=" relative group/btn flex space-x-2 items-center justify-center w-[73%] text-center py-6 rounded-full px-2 text-black h-10 shadow-input border border-[#eaeaea] dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
+            type="submit"
+          >
+            <BsMicrosoft className="h-[20px] w-[20px]" />
+            <span className="text-neutral-1000 dark:text-neutral-300 text-md">
+              Continue with Microsoft
+            </span>
+            <BottomGradient />
+          </button>
 
           <div className={`flex flex-col items-center space-y-6 ${active}`}>
             <button
-              className="relative group/btn flex space-x-2 items-center justify-start justify-center w-[75%] text-center py-8 text-black rounded-full px-4 w-full text-black h-10 shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
+              className="relative group/btn flex space-x-2 items-center justify-center w-[75%] text-center py-8 rounded-full px-4 text-black h-10 shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
               type="submit"
             >
-              <img src="/github-142-svgrepo-com.svg" alt="Github Icon" width={24} height={24} />
-              <span className="text-neutral-1000 dark:text-neutral-300 text-md">Continue with GitHub</span>
+              <IoLogoGithub className="h-[24px] w-[24px]" />
+              <span className="text-neutral-1000 dark:text-neutral-300 text-md">
+                Continue with GitHub
+              </span>
               <BottomGradient />
             </button>
 
             <button
-              className="relative group/btn flex space-x-2 items-center justify-start justify-center w-[75%] text-center py-8 text-black rounded-full px-4 w-full text-black h-10 shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
+              className="relative group/btn flex space-x-2 items-center justify-center w-[75%] text-center py-8 rounded-full px-4 text-black h-10 shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
               type="submit"
             >
-              <img src="/apple-173-svgrepo-com.svg" alt="Apple Icon" width={24} height={24} />
-              <span className="text-neutral-1000 dark:text-neutral-300 text-md">Continue with Apple</span>
+              <BsApple className="h-[24px] w-[24px]" />
+
+              <span className="text-neutral-1000 dark:text-neutral-300 text-md">
+                Continue with Apple
+              </span>
               <BottomGradient />
             </button>
           </div>

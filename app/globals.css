@@ -34,3 +34,16 @@ body {
 textarea::selection {
   background: #FF9974;
 }
+
+
+
+/* --dcircle-color */
+
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #b5b3b3;
+  margin: 1em 0;
+  padding: 0;
+}

@@ -1,10 +1,13 @@
+'use client'
 import { div } from "framer-motion/client";
 import Image from "next/image";
-import { playfairDisplay } from "@/config/fonts";
-
+import { playfairDisplay, sourceSans3 } from "@/config/fonts";
+import { Vortex } from "@/components/ui/vortex";
+import { HeroHighlight, Highlight } from "@/components/ui/hero-highlight";
+import { motion } from "framer-motion";
 export default function Home() {
   return (
-    <div className={`${playfairDisplay.className} bg-[#171717] bg-gradient-to-r from-[#171717] to-[#171717] overflow-hidden  `}>
+    <div className={`${sourceSans3.className} bg-black  `}>
       <main className="bg-black">
         <nav className="flex bg-transparent max-w-fit text-[16px] mx-auto justify-center items-center space-x-10 px-[150px] inset-x-0 border border-[2px] border-[#656565] fixed top-10 backdrop-blur-md transition-colors rounded-full duration-300 z-20 flex justify-between items-center py-3.5">
           <div className="text-white text-[18px]">MenrvaAi</div>
@@ -15,17 +18,16 @@ export default function Home() {
           </ul>
         </nav>
       </main>
-      <div className={` min-h-screen p-[50px] overflow-hidden ${playfairDisplay.className} mb-[200px]`}>
-        <Image src="/Ellipse 1.png" alt="circle" height={1000} width={1000} className=" absolute top-[100px] "></Image>
-        <div className="relative top-[100px] z-10 flex text-[white] flex-col px-6 py-12 mb-[200px]">
-          <div className="text-[white] p-[15px] pl-[20%] pr-[50px] rounded-[10px] text-[18px] w-[60%] box-border tracking-wide mb-[75px] bg-gradient-to-r from-[rgba(255,119,0,0)] via-[rgba(255,150,60,0.49)] to-[rgb(255,182,121)] bg-center bg-opacity-75">
-            Generating next-gen teaching solutions
-          </div>
-          <hr className=" w-[70%] "/>
+      <Vortex
+              backgroundColor="black"
+              className="flex items-center flex-col justify-center w-full h-full"
+            >
+      <div className={` min-h-screen  overflow-hidden ${playfairDisplay.className} `}>
+        <div className="relative top-[100px] z-10 flex text-[white] justify-center items-center flex-col px-6 py-12 ">
+          <hr className=" w-[80%] text-center margin-auto "/>
           <h1 className="text-white text-4xl mt-[50px] md:text-6xl tracking-[1px] leading-tight mb-4">
             Empowering Students with <br />
           </h1>
-          <Image src="/Rectangle 2.png" alt="blur" width={700} height={700} className="bottom-[200px] absolute left-[60%]"></Image>
           <h1 className="mt-[40px] text-white-700 text-8xl font-bold">NEXT GEN</h1> 
           <h1 className="text-white text-4xl mt-[40px] md:text-6xl tracking-[1px] leading-tight mb-4">AI Solutions</h1>
           <hr className=" mt-[35px] mb-[35px] w-[50%] " />
@@ -34,6 +36,7 @@ export default function Home() {
           </button>
         </div>
       </div>
+      </Vortex>
       <section className="bg-black py-16 h-auto text-white">
        <div className="max-w-7xl mx-auto h-auto px-4">
           <h2 className="text-white text-4xl mt-[50px] md:text-4xl tracking-[1px] leading-tight mb-4">Our Mission</h2>

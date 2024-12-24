@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+import { FloatingDockDemo } from "@/app/ui/FloatingDock";
 import { FcGoogle } from "react-icons/fc";
 import { BiLogoFacebookSquare } from "react-icons/bi";
 import { IoLogoGithub } from "react-icons/io";
@@ -25,7 +26,7 @@ export default function SignupForm() {
       <p className="text-neutral-800 text-center md:text-left">
         Already have an account?{" "}
         <span>
-          <Link href={"/login"} className=" text-[#0000EE] hover:underline ">
+          <Link href={"/account/login"} className=" text-[#0000EE] hover:underline ">
             Sign in
           </Link>
         </span>
@@ -67,67 +68,8 @@ export default function SignupForm() {
             <BottomGradient />
           </button>
         </div>
-        <div className="bg-gradient-to-r from-transparent via-neutral-700 dark:via-neutral-300 to-transparent my-8 h-[1px] w-full" />
-        <div className="flex flex-col items-center space-y-6  ">
-          <button
-            className=" relative group/btn flex space-x-2 items-center justify-center w-[73%] text-center py-6 rounded-full px-2 text-black h-10 shadow-input border border-[#eaeaea] dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
-            type="submit"
-          >
-            {/* <img src="/google-icon-logo-svgrepo-com.svg" alt="Google Icon" width={24} height={24} /> */}
-            <FcGoogle className="h-[24px] w-[24px]" />
-            <span className="text-neutral-1000 dark:text-neutral-300 text-md">
-              Continue with Google
-            </span>
-            <BottomGradient />
-          </button>
-
-          <button
-            className=" relative group/btn flex space-x-2 items-center justify-center w-[73%] text-center py-6 rounded-full px-2 text-black h-10 shadow-input border border-[#eaeaea] dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
-            type="submit"
-          >
-            <BiLogoFacebookSquare className="h-[24px] w-[24px]" />
-            <span className="text-neutral-1000 dark:text-neutral-300 text-md">
-              Continue with Facebook
-            </span>
-            <BottomGradient />
-          </button>
-
-          <button
-            className=" relative group/btn flex space-x-2 items-center justify-center w-[73%] text-center py-6 rounded-full px-2 text-black h-10 shadow-input border border-[#eaeaea] dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
-            type="submit"
-          >
-            <BsMicrosoft className="h-[20px] w-[20px]" />
-            <span className="text-neutral-1000 dark:text-neutral-300 text-md">
-              Continue with Microsoft
-            </span>
-            <BottomGradient />
-          </button>
-
-          <div className={`flex flex-col items-center space-y-6 ${active}`}>
-            <button
-              className="relative group/btn flex space-x-2 items-center justify-center w-[75%] text-center py-8 rounded-full px-4 text-black h-10 shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
-              type="submit"
-            >
-              <IoLogoGithub className="h-[24px] w-[24px]" />
-              <span className="text-neutral-1000 dark:text-neutral-300 text-md">
-                Continue with GitHub
-              </span>
-              <BottomGradient />
-            </button>
-
-            <button
-              className="relative group/btn flex space-x-2 items-center justify-center w-[75%] text-center py-8 rounded-full px-4 text-black h-10 shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
-              type="submit"
-            >
-              <BsApple className="h-[24px] w-[24px]" />
-
-              <span className="text-neutral-1000 dark:text-neutral-300 text-md">
-                Continue with Apple
-              </span>
-              <BottomGradient />
-            </button>
-          </div>
-        </div>
+        <div className="bg-gradient-to-r from-transparent via-neutral-700 dark:via-neutral-300 to-transparent mt-8 h-[1px] w-full" />
+       <FloatingDockDemo />
       </form>
     </div>
   );

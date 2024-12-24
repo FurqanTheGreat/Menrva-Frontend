@@ -21,7 +21,7 @@ export default function LoginForm() {
       <h1 className="font-[600] text-center md:text-left text-[36px] text-neutral-800">
         Sign in
       </h1>
-      <p className="text-neutral-800 text-center md:text-left">New user? <span><Link href={"/signup"} className=" text-[#0000EE] hover:underline ">Create an account</Link></span></p> 
+      <p className="text-neutral-800 text-center md:text-left">New user? <span><Link href={"/account/signup"} className=" text-[#0000EE] hover:underline ">Create an account</Link></span></p> 
       <div className="bg-gradient-to-r from-transparent via-neutral-700 dark:via-neutral-300 to-transparent my-8 h-[1px] w-full" />
 
       <form className="my-8 text-neutral-800" onSubmit={handleSubmit}>
@@ -49,8 +49,7 @@ export default function LoginForm() {
             className=" relative group/btn flex space-x-2 items-center justify-center w-[73%] text-center py-6 rounded-full px-2 text-black h-10 shadow-input border border-[#eaeaea] dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
             type="submit"
           >
-            {/* <img src="/google-icon-logo-svgrepo-com.svg" alt="Google Icon" width={24} height={24} /> */}
-            <FcGoogle className="h-[24px] w-[24px]"/>
+            <img src="/google-icon-logo-svgrepo-com.svg" alt="Google Icon" width={24} height={24} />
             <span className="text-neutral-1000 dark:text-neutral-300 text-md">
             Continue with Google
             </span>
@@ -61,7 +60,7 @@ export default function LoginForm() {
             className=" relative group/btn flex space-x-2 items-center justify-center w-[73%] text-center py-6 rounded-full px-2 text-black h-10 shadow-input border border-[#eaeaea] dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
             type="submit"
           >
-            <BiLogoFacebookSquare className="h-[24px] w-[24px]"/>
+            <img src="/facebook-color-svgrepo-com.svg" alt="Facebook Icon" width={24} height={24} />
             <span className="text-neutral-1000 dark:text-neutral-300 text-md">
             Continue with Facebook
             </span>
@@ -72,7 +71,7 @@ export default function LoginForm() {
             className=" relative group/btn flex space-x-2 items-center justify-center w-[73%] text-center py-6 rounded-full px-2 text-black h-10 shadow-input border border-[#eaeaea] dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
             type="submit"
           >
-            <BsMicrosoft className="h-[20px] w-[20px]"/>
+            <img src="/microsoft-svgrepo-com.svg" alt="Microsoft Icon" width={24} height={24} />
             <span className="text-neutral-1000 dark:text-neutral-300 text-md">
             Continue with Microsoft
             </span>

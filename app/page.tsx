@@ -1,3 +1,4 @@
+'use client'
 import Image from "next/image";
 import { playfairDisplay } from "@/config/fonts";
 import NavBar, { NavListItem } from "@/components/widgets/NavBar";
@@ -6,6 +7,9 @@ import PileOfWindows from "@/components/templates/PileOfWindows";
 import Review from "@/components/widgets/Review";
 import Light from "@/components/widgets/Light";
 import Circles from "@/components/widgets/Circles";
+import { Vortex } from "@/components/ui/vortex";
+import { Highlight } from "@/components/ui/hero-highlight";
+
 
 const navigationItems: NavListItem[] = [
   { label: "About Us", href: "#about" },
@@ -16,28 +20,27 @@ const navigationItems: NavListItem[] = [
 export default function Home() {
   return (
     <div
-      className={`${playfairDisplay.className} bg-[#171717] bg-gradient-to-r from-[#171717] to-[#171717] overflow-hidden  `}
+      className={`${playfairDisplay.className} bg-black overflow-hidden`}
     >
-      <Light
-            color="#FF9974"
-            className="w-[500px] h-[500px] rounded-full z-10 opacity-50 right-0 top-0 -translate-y-52 translate-x-52" 
-            blurRadius={100}
-          />
       <main className="bg-black">
         <NavBar items={navigationItems} />
       </main>
 
       <div
-        className={` min-h-screen p-[50px] overflow-hidden ${playfairDisplay.className} mb-[200px]`}
+        className={` min-h-screen p-[50px] overflow-hidden ${playfairDisplay.className} `}
       >
-    
-        <Circles className='h-[600px] w-[600px] border-2 -z-10'/>
-        <div className="relative top-[100px] z-10 flex text-[white] flex-col px-6 py-12 mb-[200px]">
-          <div className="text-[white] w-fit p-[15px] pl-[20%] pr-[50px] rounded-[10px] text-[18px] box-border tracking-wide mb-[75px] bg-gradient-to-r from-[rgba(255,119,0,0)] via-[rgba(255,150,60,0.49)] to-[rgb(255,182,121)] bg-center bg-opacity-75">
+       <Vortex
+        backgroundColor="black"
+        className="flex items-center flex-col justify-center px-2 md:px-10 w-full h-full"
+       >
+        <div className="relative top-[80px] z-10 flex justify-center items-center text-[white] flex-col px-6 ">
+          <Highlight className=" w-full mb-[20px] ">
+          <div className="text-[white] w-full p-[15px] text-center rounded-[10px] text-[18px] box-border tracking-wide ">
             Generating next-gen teaching solutions
           </div>
-          <hr className="w-[70%]" />
-          <h1 className="text-white text-2xl mt-[50px] md:text-6xl tracking-[1px] leading-tight mb-4">
+          </Highlight>
+          <hr className="w-full" />
+          <h1 className="text-white text-2xl mt-[20px] md:text-6xl tracking-[1px] leading-tight mb-4">
             Empowering Students with <br />
           </h1>
           
@@ -47,11 +50,12 @@ export default function Home() {
           <h1 className="text-white text-4xl mt-[40px] md:text-6xl tracking-[1px] leading-tight mb-4">
             AI Solutions
           </h1>
-          <hr className=" mt-[35px] mb-[35px] w-[50%] " />
+          <hr className=" mt-[35px] mb-[35px] w-[60%] " />
           <button className="bg-[#C87500] bg-opacity-70 hover:bg-[#ad7527] p-[20px] transition-all w-fit text-white text-[20px] py-2 px-6 rounded-[10px]">
             Get Started
           </button>
         </div>
+        </Vortex>
       </div>
       <section className="bg-[#1E1E1E] py-16 h-auto text-white">
         <div className="max-w-7xl mx-auto h-auto px-4">

@@ -69,16 +69,18 @@ export const Highlight = ({
 }) => {
   return (
     <motion.span
-      initial={{
-        backgroundSize: "0% 100%",
-      }}
-      animate={{
-        backgroundSize: "100% 100%",
-      }}
+    initial={{
+      backgroundSize: "0% 100%",
+      scale: 0.5,
+    }}
+    animate={{
+      backgroundSize: "100% 100%",
+      scale: 1,
+    }}
       transition={{
-        duration: 2,
-        ease: "linear",
-        delay: 0.5,
+        duration: 1.5,
+        ease: "easeInOut",  // or use 'cubic-bezier' for custom easing
+        delay: 0.3,
       }}
       style={{
         backgroundRepeat: "no-repeat",

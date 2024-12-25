@@ -12,6 +12,7 @@ import { FlipWords } from "@/components/ui/flip-words";
 import { BackgroundGradient } from "@/components/ui/background-gradient";
 import CountUp from "react-countup";
 import { useInView } from "react-intersection-observer";
+import FeaturesSection from "@/components/features-section-demo-1";
 
 const words = ["Productive", "Efficient", "Successful", "Focused", "Rewarding"];
 
@@ -66,22 +67,9 @@ export default function Home() {
           </button>
           </Link>
         </div>
-        <div ref={ref} className={`text-white ${sourceSans3.className} w-full p-2 pt-4 grid grid-cols-1 sm:grid-cols-3 mt-[200px] gap-5`}>
-      <p className="dm-sans text-xl sm:text-3xl font-semibold text-center text-glow">
-        {inView ? <CountUp end={500} duration={2} /> : "0"}K+
-        <span className="block text-xl sm:text-3xl"> Conversations</span>
-      </p>
-      <p className="dm-sans text-xl sm:text-3xl font-semibold text-center text-glow">
-        {inView ? <CountUp end={120} duration={3} /> : "0"}K
-        <span className="block text-xl sm:text-3xl"> Active Users</span>
-      </p>
-      <p className="dm-sans text-xl sm:text-3xl font-semibold text-center text-glow">
-        {inView ? <CountUp end={200} duration={3.5} /> : "0"}K
-        <span className="block text-xl sm:text-3xl"> Questions Answered</span>
-      </p>
-    </div>
         </Vortex>
       </div>
+      <div className="bg-gradient-to-r from-transparent via-neutral-700 dark:via-neutral-300 to-transparent mt-8 h-[1px] w-full" />
       <section className="bg-black py-16 h-auto text-white">
         <div className="max-w-7xl mx-auto h-auto px-4">
           <SparklesPreview>
@@ -153,15 +141,48 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="bg-black relative py-[100px] h-auto text-white">
+      <section className="bg-black relative py-[100px] mb-[100px] h-auto text-white">
         <PileOfWindows />
       </section>
-      <section className="relative text-white mt-20 py-16 px-8">
+      <div className="bg-gradient-to-r from-transparent via-neutral-700 dark:via-neutral-300 to-transparent mt-8 h-[1px] w-full" />
+      <div className=" mt-[100px] ">
+      <SparklesPreview>
+          Key Features
+          </SparklesPreview>
+      <FeaturesSection />
+      </div>
+      <div ref={ref} className={`text-white ${sourceSans3.className} w-full p-2 pt-4 grid grid-cols-1 sm:grid-cols-3 mt-[200px] mb-[100px] gap-5`}>
+      <p className="dm-sans text-xl sm:text-3xl font-semibold text-center text-glow">
+        {inView ? <CountUp end={500} duration={2} /> : "0"}K+
+        <span className="block text-xl sm:text-3xl"> Conversations</span>
+      </p>
+      <p className="dm-sans text-xl sm:text-3xl font-semibold text-center text-glow">
+        {inView ? <CountUp end={120} duration={3} /> : "0"}K
+        <span className="block text-xl sm:text-3xl"> Active Users</span>
+      </p>
+      <p className="dm-sans text-xl sm:text-3xl font-semibold text-center text-glow">
+        {inView ? <CountUp end={200} duration={3.5} /> : "0"}K
+        <span className="block text-xl sm:text-3xl"> Questions Answered</span>
+      </p>
+    </div>
+    <div className="bg-gradient-to-r from-transparent via-neutral-700 dark:via-neutral-300 to-transparent mt-8 h-[1px] w-full" />
+      <section className="relative text-white mt-20 mb-[100px] py-16 px-8">
       <SparklesPreview>
             What Our Learners Say
           </SparklesPreview>
         <Testimonials />
       </section>
+      <div className="bg-gradient-to-r from-transparent via-neutral-700 dark:via-neutral-300 to-transparent mb-[100px] mt-8 h-[1px] w-full" />
+      <footer className=" flex no-underline w-full h-fit text-white font-medium justify-between items-center px-[50px] py-4 text-md overflow-x-hidden ">
+        <div className=" flex justify-start text-md text-neutral-400 font-light tracking-[0.5px] items-start w-1/2 lg:w-1/2 flex-col gap-4 px-[75px] ">
+          <div className=" flex text-2xl tracking-[1px] justify-start items-start ">
+            <img src="/Colorful_Brain_Digital_World_Technology_Logo__3_-removebg-preview.png" alt="Microsoft Icon" width={40} height={40} /> 
+            <h1 className=" ml-[10px] text-white text-2xl font-semibold ">Menrva AI</h1>
+          </div>
+          <p className=" text-md text-neutral-400 font-light tracking-[0.5px] ">A Product by Team-Menrva</p>
+          <p><a href="https://github.com/FurqanTheGreat" className=" text-sky-500 " target="_blank">Muhammad Furqan</a> | <a href="https://github.com/Hammad-Hab" className=" text-sky-500 " target="_blank">Hammad Ali</a> | <a href="https://github.com/SyedHunainAli" className=" text-sky-500 " target="_blank">Hunain Ali</a></p>
+        </div>
+      </footer>
     </div>
   );
 }

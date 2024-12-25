@@ -15,7 +15,7 @@ const NavBar = (props: NavBarProps) => {
       <div className=" flex text-sm justify-center w-1/2 lg:w-1/3 "><img src="/Colorful_Brain_Digital_World_Technology_Logo__3_-removebg-preview.png" alt="Microsoft Icon" width={50} height={50} /></div>
       <ul className="hidden lg:flex space-x-10 text-white bg-transparent max-w-fit w-1/3 text-md justify-center items-center space-x-10 px-[75px] inset-x-0">
         {props.items.map((item, key) => (
-          <li key={key}>
+          <li key={item.href}>
             <a
               href={item.href}
               className={`hover:text-orange-500 transition-all ${item.className}`}

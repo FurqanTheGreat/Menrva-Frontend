@@ -69,7 +69,61 @@ export default function SignupForm() {
           </button>
         </div>
         <div className="bg-gradient-to-r from-transparent via-neutral-700 dark:via-neutral-300 to-transparent mt-8 h-[1px] w-full" />
-       <FloatingDockDemo />
+       <div className="flex flex-col items-center space-y-6  ">
+               <button
+                   className=" relative group/btn flex space-x-2 items-center justify-center w-[73%] text-center py-6 rounded-full px-2 text-black h-10 shadow-input border border-[#eaeaea] dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
+                   type="submit"
+                 >
+                   <img src="/google-icon-logo-svgrepo-com.svg" alt="Google Icon" width={24} height={24} />
+                   <span className="text-neutral-1000 dark:text-neutral-300 text-md">
+                   Continue with Google
+                   </span>
+                   <BottomGradient />
+                 </button>
+       
+                 <button
+                   className=" relative group/btn flex space-x-2 items-center justify-center w-[73%] text-center py-6 rounded-full px-2 text-black h-10 shadow-input border border-[#eaeaea] dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
+                   type="submit"
+                 >
+                   <img src="/facebook-color-svgrepo-com.svg" alt="Facebook Icon" width={24} height={24} />
+                   <span className="text-neutral-1000 dark:text-neutral-300 text-md">
+                   Continue with Facebook
+                   </span>
+                   <BottomGradient />
+                 </button>
+       
+                 <button
+                   className=" relative group/btn flex space-x-2 items-center justify-center w-[73%] text-center py-6 rounded-full px-2 text-black h-10 shadow-input border border-[#eaeaea] dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
+                   type="submit"
+                 >
+                   <img src="/microsoft-svgrepo-com.svg" alt="Microsoft Icon" width={24} height={24} />
+                   <span className="text-neutral-1000 dark:text-neutral-300 text-md">
+                   Continue with Microsoft
+                   </span>
+                   <BottomGradient />
+                 </button>
+       
+                 <div className={`flex flex-col items-center space-y-6 ${active}`}>
+                   <button
+                     className="relative group/btn flex space-x-2 items-center justify-center w-[75%] text-center py-8 rounded-full px-4 text-black h-10 shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
+                     type="submit"
+                   >
+                     <IoLogoGithub className="h-[24px] w-[24px]"/>
+                     <span className="text-neutral-1000 dark:text-neutral-300 text-md">Continue with GitHub</span>
+                     <BottomGradient />
+                   </button>
+       
+                   <button
+                     className="relative group/btn flex space-x-2 items-center justify-center w-[75%] text-center py-8 rounded-full px-4 text-black h-10 shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
+                     type="submit"
+                   >
+                   <BsApple className="h-[24px] w-[24px]"/>
+       
+                     <span className="text-neutral-1000 dark:text-neutral-300 text-md">Continue with Apple</span>
+                     <BottomGradient />
+                   </button>
+                 </div>
+                 </div>
       </form>
     </div>
   );

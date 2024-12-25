@@ -5,16 +5,15 @@ import { SparklesCore } from "@/components/ui/sparkles";
 export function SparklesPreview({children,}: {children: React.ReactNode;}) {
   return (
     <div className="h-[20rem] w-full mb-[50px] bg-black flex flex-col items-center justify-center overflow-hidden rounded-md">
-      <h1 className="md:text-5xl text-3xl lg:text-7xl font-semibold text-center text-white relative z-20 ">
+      <h1 className="md:text-5xl text-4xl lg:text-7xl font-semibold text-center text-white relative z-20 ">
         {children}
       </h1>
       <div className="w-[40rem] h-40 relative">
         {/* Gradients */}
-        <div className="absolute inset-x-20 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-[2px] w-3/4 blur-sm" />
-        <div className="absolute inset-x-20 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-px w-3/4" />
-        <div className="absolute inset-x-60 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-[5px] w-1/4 blur-sm" />
-        <div className="absolute inset-x-60 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-px w-1/4" />
-
+        <div className="absolute inset-x-20 top-0 bg-gradient-to-r from-transparent via-[rgba(255,150,60,0.49)] to-transparent h-[2px] w-3/4 blur-sm" />
+        <div className="absolute inset-x-20 top-0 bg-gradient-to-r from-transparent via-[rgba(255,150,60,0.49)] to-transparent h-px w-3/4" />
+        <div className="absolute inset-x-60 top-0 bg-gradient-to-r from-transparent via-[rgb(255,182,121)] to-transparent h-[5px] w-1/4 blur-sm" />
+        <div className="absolute inset-x-60 top-0 bg-gradient-to-r from-transparent via-[rgb(255,182,121)] to-transparent h-px w-1/4" />
         {/* Core component */}
         <SparklesCore
           background="transparent"

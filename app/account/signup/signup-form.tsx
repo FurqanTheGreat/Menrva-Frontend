@@ -19,7 +19,7 @@ export default function SignupForm() {
     console.log("Form submitted");
   };
   return (
-    <div className="max-w-[500px] flex flex-col justify-center w-full h-[100vh] md:h-full mx-auto rounded-none md:rounded-[10px] backdrop-blur-lg p-4 z-20 md:p-8 bg-white md:bg-[rgba(255,255,255,0.6)] shadow-input dark:bg-black">
+    <div className="max-w-[500px] flex flex-col justify-center w-full h-[100vh] md:h-full mx-auto rounded-none md:rounded-[10px] backdrop-blur-lg pt-8 px-8 pb-0 z-20 bg-white md:bg-[rgba(255,255,255,0.6)] shadow-input dark:bg-black">
       <h1 className="font-[600] text-center md:text-left text-[36px] text-neutral-800">
         Create an account
       </h1>
@@ -34,8 +34,6 @@ export default function SignupForm() {
       <div className="bg-gradient-to-r from-transparent via-neutral-700 dark:via-neutral-300 to-transparent mt-8 h-[1px] w-full" />
 
       <form className="my-8 text-neutral-800" onSubmit={handleSubmit}>
-        <p className="text-neutral-800 font-semibold ">Sign up with email</p>{" "}
-        <br />
         <LabelInputContainer className="mb-4">
           <Label htmlFor="username">Username</Label>
           <Input id="username" placeholder="taylor123" type="text" required />
@@ -68,7 +66,7 @@ export default function SignupForm() {
             <BottomGradient />
           </button>
         </div>
-        <div className="bg-gradient-to-r from-transparent via-neutral-700 dark:via-neutral-300 to-transparent mt-8 h-[1px] w-full" />
+        <div className="bg-gradient-to-r from-transparent via-neutral-700 dark:via-neutral-300 to-transparent mt-8 h-[1px] w-full" /> <br />
        <div className="flex flex-col items-center space-y-6  ">
                <button
                    className=" relative group/btn flex space-x-2 items-center justify-center w-[73%] text-center py-6 rounded-full px-2 text-black h-10 shadow-input border border-[#eaeaea] dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"

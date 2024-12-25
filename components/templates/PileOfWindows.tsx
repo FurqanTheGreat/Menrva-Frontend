@@ -38,13 +38,6 @@ const PileOfWindows = () => {
               height={600}
               className=" absolute left-[82.2%] overflow-hidden z-0 bottom-[50px] "
             ></Image>
-            <Image
-              src="/Rectangle 11.png"
-              alt="screen"
-              width={5000}
-              height={180}
-              className=" absolute left-[0%] bottom-[-50px] z-10 "
-            ></Image>
     </>
   );
 };

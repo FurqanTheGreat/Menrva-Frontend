@@ -9,7 +9,7 @@ const Card = (props: CardProps) => {
   return (
     <div
       className={
-        "bg-white/10 w-[300px] relative rounded-lg overflow-hidden shadow-md " +
+        "bg-white/10 w-full relative rounded-lg overflow-hidden shadow-md " +
         props.className
       } style={{
       borderRadius: "10px"

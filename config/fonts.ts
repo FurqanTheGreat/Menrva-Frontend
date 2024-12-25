@@ -34,4 +34,5 @@ export const roboto = Roboto({
 export const sourceSans3 = Source_Sans_3({
   subsets: ['latin'],
   weight: ['400', '500', '900', '700'], // Specify the weights you need
+  variable: "--font-source_sans_3",
 });

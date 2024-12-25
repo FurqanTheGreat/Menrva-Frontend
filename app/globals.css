@@ -10,6 +10,22 @@
   --dcircle-color: #4c4c4c;
 }
 
+/* Style the scrollbar */
+::-webkit-scrollbar {
+  width: 5px; /* Width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Color of the track */
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(90deg, rgba(255,150,60,0.49), rgb(255,182,121)); /* Color of the thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: orange; /* Color of the thumb on hover */
+}
 
 body {
   color: var(--foreground);

@@ -48,8 +48,8 @@ export const Vortex = (props: VortexProps) => {
   const rand = (n: number): number => n * Math.random();
   const randRange = (n: number): number => n - rand(2 * n);
   const fadeInOut = (t: number, m: number): number => {
-    let hm = 0.5 * m;
-    return Math.abs(((t + hm) % m) - hm) / hm;
+    const hm = 0.5 * m;
+    return Math.min(1, Math.abs(((t + hm) % m) - hm) / hm);
   };
   const lerp = (n1: number, n2: number, speed: number): number =>
     (1 - speed) * n1 + speed * n2;
@@ -172,10 +172,8 @@ export const Vortex = (props: VortexProps) => {
     ctx.save();
     ctx.lineCap = "round";
     ctx.lineWidth = radius;
-    const color =
-    Math.random() > 0.5
-      ? `rgba(255,150,60,${fadeInOut(life, ttl)})`
-      : `rgb(255,182,121)`;
+    const alpha = fadeInOut(life, ttl); 
+    const color = `rgba(255,150,60,${alpha})`;
     ctx.strokeStyle = color;
     ctx.beginPath();
     ctx.moveTo(x, y);
@@ -213,7 +211,7 @@ export const Vortex = (props: VortexProps) => {
     ctx.restore();
 
     ctx.save();
-    ctx.filter = "blur(4px) brightness(200%)";
+    ctx.filter = "blur(4px) brightness(150%)";
     ctx.globalCompositeOperation = "lighter";
     ctx.drawImage(canvas, 0, 0);
     ctx.restore();

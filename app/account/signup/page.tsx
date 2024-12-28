@@ -1,5 +1,5 @@
 import SignupForm from "./signup-form"
-import { sourceSans3, playfairDisplay } from '@/config/fonts';
+import { playfairDisplay } from '@/config/fonts';
 
 export default function Home() {
     return (

@@ -5,7 +5,7 @@ interface LightProps
     width?: string,
     height?: string,
     className?: string,
-    blurRadius: Number,
+    blurRadius: number,
     children?: any
 }
 

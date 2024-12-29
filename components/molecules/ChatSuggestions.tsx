@@ -9,10 +9,10 @@ interface ChatSuggestionsProps {
 }
 const ChatSuggestions = (props: ChatSuggestionsProps) => {
   return (
-    <div className="grid grid-cols-5 gap-5 font-playfair place-items-center">
+    <div className="grid grid-cols-5 gap-5 place-items-center mt-10 cursor-pointer">
       {props.suggestions.map((suggestion, key) => (
         <div
-          className="border border-gray-400 rounded-md p-2"
+          className="border border-zinc-400 rounded-md p-2 hover:border-zinc-300 z-50 transition-all"
           key={key}
           onClick={() => props.onSuggestionSelect(suggestion)}
         >
@@ -21,12 +21,6 @@ const ChatSuggestions = (props: ChatSuggestionsProps) => {
           <p className="text-sm mb-5">{suggestion.text}</p>
         </div>
       ))}
-      {/* <div className="border border-gray-200 rounded-md p-2">Lorem ipsum dolor sit amet consectetur adipisicing elit.</div> */}
-      {/* <div className="border border-gray-200 rounded-md p-2">Lorem ipsum dolor sit amet consectetur adipisicing elit.</div>
-        <div className="border border-gray-200 rounded-md p-2">Lorem ipsum dolor sit amet consectetur adipisicing elit.</div>
-        <div className="border border-gray-200 rounded-md p-2">Lorem ipsum dolor sit amet consectetur adipisicing elit.</div>
-        <div className="border border-gray-200 rounded-md p-2">Lorem ipsum dolor sit amet consectetur adipisicing elit.</div>
-        <div className="border border-gray-200 rounded-md p-2">Lorem ipsum dolor sit amet consectetur adipisicing elit.</div> */}
     </div>
   );
 };

@@ -35,7 +35,7 @@ const suggestions: Suggestion[] = [
 
 const Dashboard = () => {
   return (
-    <div className="bg-[--background] flex flex-row h-full">
+    <div className="bg-[--background] flex flex-row h-full p-9 rounded-md border border-zinc-500">
       <div className="absolute flex flex-col items-center w-1/2">
         <Circles>
           <Light

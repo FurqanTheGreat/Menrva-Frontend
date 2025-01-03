@@ -61,7 +61,7 @@ export default function SignupForm() {
 
       <form className="my-8 text-neutral-800" onSubmit={handleSubmit}>
         <LabelInputContainer className="mb-4">
-        <Label htmlFor="username">Username</Label>
+        <Label htmlFor="username">Name</Label>
           <Input
             id="username"
             name="username"

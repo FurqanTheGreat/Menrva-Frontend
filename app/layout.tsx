@@ -1,5 +1,6 @@
 import "./globals.css";
 import { Playfair_Display, Inter } from 'next/font/google'
+import { sourceSans3 } from "@/config/fonts";
 
 const playfair = Playfair_Display({
   weight: ['400', '700'],
@@ -26,7 +27,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head />
       <body
-        className={`antialiased ${playfair.variable} ${inter.variable}`}
+        className={`antialiased ${playfair.variable} ${inter.variable} ${sourceSans3.variable} overflow-x-hidden`}
       >
 
               {children}

@@ -18,9 +18,9 @@ import Hr from "./ui/Hr";
 const words = ["Productive", "Efficient", "Successful", "Focused", "Rewarding"];
 
 const navigationItems: NavListItem[] = [
-  { label: "About", href: "#about" },
-  { label: "Services", href: "#services" },
-  { label: "Pricing", href: "#pricing" },
+  { label: "Our Mission", href: "#about" },
+  { label: "Features", href: "#services" },
+  { label: "Testimonials", href: "#pricing" },
 ];
 
 export default function Home() {
@@ -31,14 +31,14 @@ export default function Home() {
 
   return (
     <div
-      className={`${playfairDisplay.className} bg-black overflow-hidden`}
+      className={`${sourceSans3.className} bg-black overflow-hidden`}
     >
-      <main className="bg-black ">
+      <main className=" bg-black flex justify-center ">
         <NavBar items={navigationItems} />
       </main>
 
       <div
-        className={` min-h-screen sm:mb-[100px] p-[50px] overflow-hidden ${playfairDisplay.className} `}
+        className={` min-h-screen sm:mb-[100px] p-[50px] overflow-hidden ${sourceSans3.className} `}
       >
        <Vortex
         backgroundColor="black"
@@ -62,7 +62,7 @@ export default function Home() {
             AI Solutions
           </h1>
           <hr className=" mt-[35px] mb-[35px] w-[60%] " />
-          <Link href={"/account/login"}>
+          <Link href={"/account/signup"}>
           <button className={`bg-[#C87500] bg-opacity-70 hover:bg-[#ad7527] p-[20px] transition-all w-fit text-white text-[20px] py-2 px-6 rounded-[10px]`}>
             Get Started
           </button>

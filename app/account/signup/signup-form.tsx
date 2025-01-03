@@ -6,12 +6,43 @@ import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { IoLogoGithub } from "react-icons/io";
 import { BsApple } from "react-icons/bs";
+import { useState } from "react";
+import axios from "axios";
 
 export default function SignupForm() {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log("Form submitted");
+  const [formData, setFormData] = useState({ username: "", email: "", password: "" });
+  const [message, setMessage] = useState("");
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const registerResponse = await axios.post("http://localhost:5000/auth/register", {
+        user_name: formData.username,
+        email: formData.email,
+        password: formData.password,
+      });
+
+      const jwt = registerResponse.data.key;
+
+      await axios.post(
+        "http://localhost:5000/auth/send-email",
+        {},
+        {
+          headers: { Authorization: jwt },
+        }
+      );
+
+      setMessage("Registration successful! Please check your email to activate your account.");
+    } catch (error: any) {
+      setMessage(error.response?.data?.msg || "An error occurred. Please try again.");
+      console.log(error)
+    }
+  };
+  
   return (
     <div className="max-w-[500px] flex flex-col justify-center w-full h-[100vh] md:h-full mx-auto rounded-none md:rounded-[10px] backdrop-blur-lg pt-8 px-8 pb-0 z-20 bg-white md:bg-[rgba(255,255,255,0.6)] shadow-input dark:bg-black">
       <h1 className="font-[600] text-center md:text-left text-[36px] text-neutral-800">
@@ -25,28 +56,43 @@ export default function SignupForm() {
           </Link>
         </span>
       </p>
+      {message && <p className="mt-4 text-center text-red-500">{message}</p>}
       <div className="bg-gradient-to-r from-transparent via-neutral-700 dark:via-neutral-300 to-transparent mt-8 h-[1px] w-full" />
 
       <form className="my-8 text-neutral-800" onSubmit={handleSubmit}>
         <LabelInputContainer className="mb-4">
-          <Label htmlFor="username">Username</Label>
-          <Input id="username" placeholder="taylor123" type="text" required />
-        </LabelInputContainer>
-        <LabelInputContainer className="mb-4">
-          <Label htmlFor="email">Email Address</Label>
+        <Label htmlFor="username">Username</Label>
           <Input
-            id="email"
-            placeholder="projectmayhem@fc.com"
-            type="email"
+            id="username"
+            name="username"
+            placeholder="taylor123"
+            type="text"
+            value={formData.username}
+            onChange={handleChange}
             required
           />
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">
-          <Label htmlFor="password">Password</Label>
+        <Label htmlFor="email">Email Address</Label>
+          <Input
+            id="email"
+            name="email"
+            placeholder="example@example.com"
+            type="email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+        </LabelInputContainer>
+        <LabelInputContainer className="mb-4">
+        <Label htmlFor="password">Password</Label>
           <Input
             id="password"
+            name="password"
             placeholder="••••••••"
             type="password"
+            value={formData.password}
+            onChange={handleChange}
             required
           />
         </LabelInputContainer>{" "}

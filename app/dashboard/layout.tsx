@@ -1,3 +1,4 @@
+import { Navbar } from "../ui/Sidebar";
 
 export default function RootLayout({
   children,
@@ -5,11 +6,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="flex flex-row w-full h-screen">
-      <div className="bg-[#5A5A5A] w-fit h-screen p-5 rounded-r-md ">
-        Hi
+    <div className="flex flex-row w-full h-screen" suppressHydrationWarning>
+      <div className=" w-fit h-screen rounded-r-md ">
+        <Navbar />
       </div>
-      <div className="p-10 w-full h-full">{children}</div>
+      <div className=" w-full h-full">{children}</div>
     </div>
   );
 }

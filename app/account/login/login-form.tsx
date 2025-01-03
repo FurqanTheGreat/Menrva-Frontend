@@ -4,28 +4,67 @@ import Link from "next/link";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+import { useState } from "react";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 export default function LoginForm() {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log("Form submitted");
+  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [message, setMessage] = useState("");
+  const router = useRouter();
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const registerResponse = await axios.post("http://localhost:5000/auth/login", {
+        email: formData.email,
+        password: formData.password,
+      });
+
+      router.push("/dashboard");
+    } catch (error: any) {
+      setMessage(error.response?.data?.msg || "An error occurred. Please try again.");
+      console.log(error)
+    }
+  };
+
   return (
     <div className="max-w-[500px] flex flex-col justify-center w-full h-[100vh] md:h-full mx-auto rounded-none md:rounded-[10px] backdrop-blur-lg p-4 z-20 md:p-8 bg-white md:bg-[rgba(255,255,255,0.6)] shadow-input dark:bg-black">
       <h1 className="font-[600] text-center md:text-left text-[36px] text-neutral-800">
         Sign in
       </h1>
       <p className="text-neutral-800 text-center md:text-left">New user? <span><Link href={"/account/signup"} className=" text-[#0000EE] hover:underline ">Create an account</Link></span></p> 
+      {message && <p className="mt-4 text-center text-red-500">{message}</p>}
       <div className="bg-gradient-to-r from-transparent via-neutral-700 dark:via-neutral-300 to-transparent my-8 h-[1px] w-full" />
 
       <form className="my-8 text-neutral-800" onSubmit={handleSubmit}>
         <LabelInputContainer className="mb-4">
-          <Label htmlFor="email">Email Address</Label>
-          <Input id="email" placeholder="projectmayhem@fc.com" type="email" required/>
+          <Label htmlFor="email">Email</Label>
+                    <Input
+                      id="email"
+                      name="email"
+                      placeholder="taylor123"
+                      type="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      required
+                    />
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="password">Password</Label>
-          <Input id="password" placeholder="••••••••" type="password" required/>
+                    <Input
+                      id="password"
+                      name="password"
+                      placeholder="••••••••"
+                      type="password"
+                      value={formData.password}
+                      onChange={handleChange}
+                      required
+                    />
         </LabelInputContainer> <br />
         <div className=" w-full flex justify-center items-center ">    
         <button

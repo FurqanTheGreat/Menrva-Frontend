@@ -4,8 +4,6 @@ import Link from "next/link";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import { IoLogoGithub } from "react-icons/io";
-import { BsApple } from "react-icons/bs";
 import { useState } from "react";
 import axios from "axios";
 
@@ -20,16 +18,16 @@ export default function SignupForm() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const registerResponse = await axios.post("http://localhost:5000/auth/register", {
+      const registerResponse = await axios.post("http://localhost:3002/auth/register", {
         user_name: formData.username,
         email: formData.email,
         password: formData.password,
       });
 
       const jwt = registerResponse.data.key;
-
+      
       await axios.post(
-        "http://localhost:5000/auth/send-email",
+        "http://localhost:3002/auth/send-email",
         {},
         {
           headers: { Authorization: jwt },

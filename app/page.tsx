@@ -5,15 +5,15 @@ import NavBar, { NavListItem } from "@/components/widgets/NavBar";
 import PileOfWindows from "@/components/templates/PileOfWindows";
 import { Vortex } from "@/components/ui/vortex";
 import { Highlight } from "@/components/ui/hero-highlight";
-import { SparklesPreview } from "./ui/Sparkle";
-import { Testimonials } from "./ui/Testimonials";
+import { SparklesPreview } from "../components/app_ui/Sparkle";
+import { Testimonials } from "../components/app_ui/Testimonials";
 import Link from "next/link";
 import { FlipWords } from "@/components/ui/flip-words";
 import { BackgroundGradient } from "@/components/ui/background-gradient";
 import CountUp from "react-countup";
 import { useInView } from "react-intersection-observer";
 import FeaturesSection from "@/components/features-section-demo-1";
-import Hr from "./ui/Hr";
+import Hr from "../components/app_ui/Hr";
 
 const words = ["Productive", "Efficient", "Successful", "Focused", "Rewarding"];
 

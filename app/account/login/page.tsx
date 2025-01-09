@@ -1,5 +1,5 @@
 import LoginForm from './login-form';
-import { playfairDisplay, sourceSans3 } from '@/config/fonts';
+import { sourceSans3 } from '@/config/fonts';
 
 export default function Home() {
     return (

@@ -59,18 +59,6 @@ export default function SignupForm() {
 
       <form className="my-8 text-neutral-800" onSubmit={handleSubmit}>
         <LabelInputContainer className="mb-4">
-        <Label htmlFor="username">Name</Label>
-          <Input
-            id="username"
-            name="username"
-            placeholder="taylor123"
-            type="text"
-            value={formData.username}
-            onChange={handleChange}
-            required
-          />
-        </LabelInputContainer>
-        <LabelInputContainer className="mb-4">
         <Label htmlFor="email">Email Address</Label>
           <Input
             id="email"
@@ -78,6 +66,18 @@ export default function SignupForm() {
             placeholder="example@example.com"
             type="email"
             value={formData.email}
+            onChange={handleChange}
+            required
+          />
+        </LabelInputContainer>
+        <LabelInputContainer className="mb-4">
+        <Label htmlFor="username">Name</Label>
+          <Input
+            id="username"
+            name="username"
+            placeholder="taylor123"
+            type="text"
+            value={formData.username}
             onChange={handleChange}
             required
           />

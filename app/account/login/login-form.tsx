@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 import cookies from 'cookiejs'
 
 export default function LoginForm() {
-  const [formData, setFormData] = useState({ username: "", password: "" });
+  const [formData, setFormData] = useState({ email: "", password: "" });
   const [message, setMessage] = useState("");
   const router = useRouter();
 
@@ -31,7 +31,7 @@ export default function LoginForm() {
       const registerResponse = await axios.post(
         "http://localhost:3002/auth/login",
         {
-          user_name: formData.username,
+          email: formData.email,
           password: formData.password,
         }
       );
@@ -69,13 +69,13 @@ export default function LoginForm() {
             
       <form className="my-8 text-neutral-800 disabled" onSubmit={handleSubmit}>
         <LabelInputContainer className="mb-4">
-          <Label htmlFor="username">username</Label>
+          <Label htmlFor="email">Email</Label>
           <Input
-            id="username"
-            name="username"
-            placeholder="taylor123"
-            type="text"
-            value={formData.username}
+            id="email"
+            name="email"
+            placeholder="tylor@gmail.com"
+            type="email"
+            value={formData.email}
             onChange={handleChange}
             required
           />

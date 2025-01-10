@@ -10,6 +10,7 @@ import axios from "axios";
 export default function SignupForm() {
   const [formData, setFormData] = useState({ username: "", email: "", password: "" });
   const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState<"success" | "error" | "">("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -35,8 +36,10 @@ export default function SignupForm() {
       );
 
       setMessage("Registration successful! Please check your email to activate your account.");
+      setMessageType("success");
     } catch (error: any) {
       setMessage(error.response?.data?.msg || "An error occurred. Please try again.");
+      setMessageType("error");
       console.log(error)
     }
   };
@@ -54,10 +57,24 @@ export default function SignupForm() {
           </Link>
         </span>
       </p>
-      {message && <p className="mt-4 text-center text-red-500">{message}</p>}
+      {message && (<p className={`mt-4 text-center ${ messageType === "success" ? "text-green-700" : "text-red-500" }`}> {message} </p>)}
       <div className="bg-gradient-to-r from-transparent via-neutral-700 dark:via-neutral-300 to-transparent mt-8 h-[1px] w-full" />
 
       <form className="my-8 text-neutral-800" onSubmit={handleSubmit}>
+
+        <LabelInputContainer className="mb-4">
+        <Label htmlFor="username">Name</Label>
+          <Input
+            id="username"
+            name="username"
+            placeholder="taylor123"
+            type="text"
+            value={formData.username}
+            onChange={handleChange}
+            autoComplete="off"
+            required
+          />
+        </LabelInputContainer>
         <LabelInputContainer className="mb-4">
         <Label htmlFor="email">Email Address</Label>
           <Input
@@ -68,18 +85,7 @@ export default function SignupForm() {
             value={formData.email}
             onChange={handleChange}
             required
-          />
-        </LabelInputContainer>
-        <LabelInputContainer className="mb-4">
-        <Label htmlFor="username">Name</Label>
-          <Input
-            id="username"
-            name="username"
-            placeholder="taylor123"
-            type="text"
-            value={formData.username}
-            onChange={handleChange}
-            required
+            autoComplete="email"
           />
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">
@@ -92,6 +98,7 @@ export default function SignupForm() {
             value={formData.password}
             onChange={handleChange}
             required
+            autoComplete="new-password"
           />
         </LabelInputContainer>{" "}
         <br />

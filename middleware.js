@@ -4,6 +4,10 @@ import appConfig from 'components/config'
 // This function can be marked `async` if using `await` inside
 export async function middleware(request) {
   const cookie = request.cookies.get('jwt')
+  if (!cookie)
+  {
+    
+  }
   const jwt = cookie.value
   const response = await fetch(`${appConfig.backendEndpoint}auth/check-token`, {
     method: 'POST',

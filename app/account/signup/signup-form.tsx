@@ -6,12 +6,14 @@ import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 import axios from "axios";
+import cookies from 'cookiejs'
+import { useRouter } from "next/router";
 
 export default function SignupForm() {
   const [formData, setFormData] = useState({ username: "", email: "", password: "" });
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState<"success" | "error" | "">("");
-
+  const router = useRouter()
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -24,7 +26,7 @@ export default function SignupForm() {
         email: formData.email,
         password: formData.password,
       });
-
+      // TODO: ADD PROPER ERROR HANDLING!!!!!
       const jwt = registerResponse.data.key;
       
       await axios.post(
@@ -34,6 +36,8 @@ export default function SignupForm() {
           headers: { Authorization: jwt },
         }
       );
+      cookies({ jwt: jwt }, {expires: 7}) // TODO: ADD PROPER CONDITIONING 'CAUSE THIS IS A STUPID WAY TO DEAL WITH COOKIES
+      router.push("/dashboard");
 
       setMessage("Registration successful! Please check your email to activate your account.");
       setMessageType("success");

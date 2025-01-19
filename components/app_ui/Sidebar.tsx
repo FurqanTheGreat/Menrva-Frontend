@@ -14,10 +14,13 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 import axios from "axios";
 import cookie from "cookiejs";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
+import GetUserName from "../api/get-user-name";
+import Avatar from "../ui/avatar";
 
 export function Navbar() {
   const router = useRouter()
+  const pathname = usePathname();
   const links = [
     {
       label: "Profile",
@@ -41,11 +44,20 @@ export function Navbar() {
       ),
     },
   ];
+
+  useEffect(() => {
+    (async () => {
+      const res = await GetUserName();
+      setUsername(res);
+    })();
+  }, []);
   
   const [open, setOpen] = useState(false);
   const [chats, setChats] = useState([]);
+  const [userName, setUsername] = useState("")
 
   const getUserId = async () => {
+  
     try {
       const token = cookie.get('jwt') // Retrieve the JWT token from storage
       if (!token) {
@@ -117,7 +129,7 @@ export function Navbar() {
         <SidebarBody className="justify-between gap-10">
         <div className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
           <div className="h-2/3">
-            {open ? <Logo /> : <LogoIcon />}
+            {open ? <Logo userName={userName} /> : <LogoIcon userName={userName} />}
             <SidebarLink
               link={{
                 label: "Menrva AI",
@@ -132,7 +144,7 @@ export function Navbar() {
                 ),
               }}
               className="mt-4"
-              
+              onClick={() => pathname === '/dashboard' ? window.location.reload() : router.replace('/dashboard')}
             ></SidebarLink>
             <SidebarLink
               link={{
@@ -157,13 +169,13 @@ export function Navbar() {
                     className="mt-1 ml-8"
                   />
                 ))}
-              {/* {chats.length < 4 &&
+              {chats.length < 4 &&
                 Array.from({ length: 4 - chats.length }).map((_, index) => (
                   <div
                     key={index}
                     className={`h-6 mt-2 ml-2 ${!open ? 'hidden' : ''} bg-neutral-700 animate-pulse rounded-[5px]`}
                   />
-                ))} */}
+                ))}
             </div>
           </div>
           <div className="mt-8 h-1/3 flex flex-col gap-2">
@@ -180,31 +192,26 @@ export function Navbar() {
     </div>
   );
 }
-export const Logo = () => {
+export const Logo = (props: any) => {
   return (
     <div className="flex justify-center items-center ">
       <Link
         href="#"
         className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20"
       >
-        <Image
-          src="/Screenshot 2024-11-24 173312.png"
-          alt="logo"
-          width={60}
-          height={60}
-          className=" rounded-full "
-        ></Image>
+          <Avatar name={props.userName} size={50} />
       </Link>
     </div>
   );
 };
-export const LogoIcon = () => {
+
+export const LogoIcon = (props: any) => {
   return (
     <Link
       href="#"
       className="font-normal flex space-x-2 items-center text-sm text-white py-1 mb-8 relative z-20"
     >
-      <Image src="/Screenshot 2024-11-24 173312.png" alt="logo" width={30} height={30} className=" rounded-full "></Image>
+      <Avatar name={props.userName} size={30} />
     </Link>
   );
 };

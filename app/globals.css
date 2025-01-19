@@ -36,6 +36,28 @@ body {
   color: #ececec;
 }
 
+.prose sup {
+  font-size: 0.8rem; /* Makes the superscript smaller */
+  vertical-align: super; /* Raises the superscript above the text */
+  color: #f8f8f2; /* Optional: change the color to match your theme */
+}
+
+.prose pre {
+  background-color: #1e1e1e; /* Dark background */
+  color: white;                /* White text */
+  padding: 16px;               /* Add padding around the code */
+  border-radius: 5px;          /* Rounded corners */
+  overflow-x: auto;            /* Enable horizontal scrolling if code overflows */
+  font-family: "Courier New", monospace; /* Use monospace font for code */
+}
+
+.prose code {
+  color: #f8f8f2;
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-size: 0.95rem;
+}
+
 .playfair-display {
   font-family: "Playfair Display";
   font-optical-sizing: auto;

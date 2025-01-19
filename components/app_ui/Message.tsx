@@ -2,10 +2,12 @@ interface MessageProps {
     sender: string;
     message: any;
     avatar: string;
-    isSender: boolean; // true for right-aligned, false for left-aligned
+    isSender: boolean;
+    div: boolean;
+    divVal: any;
   }
   
-  const Message: React.FC<MessageProps> = ({ sender, message, avatar, isSender }) => {
+  const Message: React.FC<MessageProps> = ({ sender, message, avatar, isSender, div, divVal }) => {
     return (
       <div
         className={`flex ${isSender ? "justify-end" : "justify-start"} w-full p-4`}
@@ -16,11 +18,11 @@ interface MessageProps {
           }`}
         >
           {/* Avatar */}
-          <img
+          {div ? <img
             src={avatar}
             alt="Avatar"
             className="w-10 h-10 rounded-full object-cover"
-          />
+          /> : divVal}
           <div className="flex flex-col">
             {/* Sender Name */}
             <span

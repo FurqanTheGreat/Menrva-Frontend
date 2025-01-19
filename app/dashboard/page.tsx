@@ -11,6 +11,8 @@ import remarkGfm from "remark-gfm";
 import { MultiStepLoader as Loader } from "@/components/ui/multi-step-loader";
 import { useRouter } from "next/navigation";
 import Dialog from "./filemanager/dialog";
+import Avatar from "@/components/ui/avatar";
+import GetUserName from "@/components/api/get-user-name";
 
 const Dashboard = () => {
   const [chatName, setChatName] = useState("");
@@ -25,6 +27,7 @@ const Dashboard = () => {
   const [chatId, setChatId] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [tags, setTags] = useState<string[]>([]);
+  const [userName, setUsername] = useState("")
 
   const loadingStates = !selectedDocument ? [
     {
@@ -99,7 +102,6 @@ const Dashboard = () => {
       );
 
       if (response.status === 200) {
-        console.log("User ID retrieved successfully:", response.data.user_id);
         return response.data.user_id;
       }
     } catch (error: any) {
@@ -110,6 +112,13 @@ const Dashboard = () => {
       }
     }
   };
+
+  useEffect(() => {
+    (async () => {
+      const res = await GetUserName();
+      setUsername(res);
+    })();
+  }, []);
 
   type SendPromptParams = {
     query: string;
@@ -141,13 +150,8 @@ const Dashboard = () => {
 
       await axios.post(
         "http://localhost:3002/chat_mng/insert_msg",
-        { chat_id, user_id, user_msg: query, ai_msg: aiMessage, tags },
-        { headers: { Authorization: `${token}` } }
-      );
-    } catch (error: any) {
-      console.error(
-        "Error in sendPrompt:",
-        error.response?.data || error.message
+        { chat_id, user_id, user_msg: query, ai_msg: aiMessage },
+        { headers: { Authorization: `Bearer ${token}` } }
       );
     } finally {
       setLoading(false);
@@ -230,7 +234,7 @@ const Dashboard = () => {
 
   return (
     <div className={`flex flex-row w-full h-full ${sourceSans3.className}`}>
-      <div className="bg-orange-500 blur-[200px] w-full h-[100px] fixed" />
+      <div className="bg-orange-500 blur-[200px] w-full h-[100px] absolute" />
       <div
         className={`w-full h-full flex flex-col items-center bg-[#27272aa8] ${
           !hid ? "justify-center" : "justify-end"
@@ -242,7 +246,7 @@ const Dashboard = () => {
             {messages.map((msg, index) => (
               <Message
                 key={index}
-                sender={msg.sender === "user" ? "Muhammad Furqan" : "Menrva"}
+                sender={msg.sender === "user" ? userName : "Menrva"}
                 message={
                   msg.sender === "ai" ? (
                     <ReactMarkdown
@@ -261,6 +265,15 @@ const Dashboard = () => {
                     : "/Colorful_Brain_Digital_World_Technology_Logo__3_-removebg-preview.png"
                 }
                 isSender={msg.sender === "user"}
+                div= {false}
+                divVal={
+                  msg.sender === "ai"
+                  ? <img
+                  src={"/Colorful_Brain_Digital_World_Technology_Logo__3_-removebg-preview.png"}
+                  alt="Avatar"
+                  className="w-10 h-10 rounded-full object-cover"
+                />
+                  : <Avatar name={userName} size={30} />}
               />
             ))}
           </div>
@@ -268,9 +281,9 @@ const Dashboard = () => {
           <div />
         )}
         {!hid && (
-          <div className="w-1/2">
-            <p className="text-5xl text-[#b6b6b6] text-center">
-              Hi there, User
+          <div className="w-full">
+            <p className="text-5xl text-[#b6b6b6] w-full text-center">
+              {`Hi there, ${userName}`}
             </p>
             <br />
             <p className="text-3xl text-center mb-8">What can I help with?</p>
@@ -279,12 +292,19 @@ const Dashboard = () => {
         {!loading ? (
           <>
             <div className="w-1/3 flex items-start mt-2 gap-1">
-            {selectedDocument ? <span className='bg-blue-200 text-blue-400 p-1 text-sm mb-2' style={{
-              borderRadius: "5px"
-            }}><small>Document: </small>{selectedDocument   .replace("documents/", "")
-              .replace(".pdf", "")
-              .replaceAll("_", " ").slice(0, 20) + '...'}</span> : ""}
-
+            {selectedDocument ? (
+              <div className="bg-blue-200 text-blue-400 p-1 text-sm mb-2" style={{ borderRadius: "5px", display: "flex", alignItems: "center" }}>
+                <button
+                  onClick={() => setSelectedDocument(null)}
+                  className="text-blue-700 font-extrabold mr-2"
+                  aria-label="Remove document"
+                >
+                  ✕
+                </button>
+                <small>Document: </small>
+                {selectedDocument.replace("documents/", "").replace(".pdf", "").replaceAll("_", " ").slice(0, 20) + '...'}
+              </div>
+            ) : ""}
             {tags.map((tag) => <span className='bg-purple-200 text-purple-400 p-1 text-sm mb-2' style={{
               borderRadius: "5px"
             }}><small>Tag: </small>{tag}</span>)}
@@ -294,7 +314,7 @@ const Dashboard = () => {
             onChange={(e) => setChatName(e.target.value)}
             onSubmit={handleSubmit}
             onInsertDoc={() => {
-              router.replace('/filemanager')
+              router.replace('/dashboard/filemanager')
             }}
             onReferDoc={() => setShowDialog(true)}
           />
@@ -307,6 +327,7 @@ const Dashboard = () => {
             setSelectedDocument(doc)
             setShowDialog(false)
           }} 
+          onClose={() => setShowDialog(false)}
         />
       </div>
     </div>

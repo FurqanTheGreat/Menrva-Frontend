@@ -1,8 +1,12 @@
+"use client"
 import { cn } from "@/lib/utils";
 import React, { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { IconUpload } from "@tabler/icons-react";
 import { useDropzone } from "react-dropzone";
+import { useRouter } from "next/navigation";
+import { IconArrowBackUp, IconArrowNarrowRight } from "@tabler/icons-react";
+import { sourceSans3 } from "@/config/fonts";
 
 const mainVariant = {
   initial: {
@@ -31,6 +35,7 @@ export const FileUpload = ({
   onChange?: (files: File[]) => void;
   
 }) => {
+  const router = useRouter()
   const [files, setFiles] = useState<File[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -52,8 +57,19 @@ export const FileUpload = ({
     },
   });
 
+  const handleContinue = () => {
+    router.push("/dashboard");
+  };
+
   return (
-    <div className="w-full " {...getRootProps()}>
+    <div className={`w-full ${sourceSans3.className} `} {...getRootProps()}>
+        <button
+          onClick={() => router.replace('/dashboard')}
+          className="relative bottom-[180px] left-10 text-white z-[120]"
+          aria-label="Close Dialog"
+        >
+          <IconArrowBackUp className="h-10 w-10" />
+        </button>
       <motion.div
         onClick={handleClick}
         whileHover="animate"
@@ -70,13 +86,16 @@ export const FileUpload = ({
           {/* <GridPattern /> */}
         </div>
         <div className="flex flex-col items-center justify-center">
-          <p className="relative z-20 font-sans font-bold text-neutral-300 text-base">
+          <p className="relative z-20 font-bold text-neutral-300 text-base">
             Upload file
           </p>
-          <p className="relative z-20 font-sans font-normal text-neutral-400 text-base mt-2">
+          <p className="relative z-20 font-normal text-neutral-400 text-base mt-2">
             Drag or drop your files here or click to upload
           </p>
-          <div className="relative w-full mt-10 max-w-xl mx-auto">
+          <p className="relative z-20 text-[14px] font-normal text-neutral-400 text-base mt-2">
+            PDF format only
+          </p>
+          <div className="relative w-full mt-4 max-w-xl mx-auto">
             {files.length > 0 &&
               files.map((file, idx) => (
                 <motion.div
@@ -165,6 +184,16 @@ export const FileUpload = ({
           </div>
         </div>
       </motion.div>
+      {files.length > 0 && (
+        <div className="w-full flex justify-center">
+          <button
+            onClick={handleContinue}
+            className="mt-6 px-6 py-2 m-auto text-center text-white font-normal text-[22px] text-base border border-white rounded-[10px] shadow-lg hover:bg-white hover:text-black transition"
+          >
+            Continue <span><IconArrowNarrowRight className="inline w-5 h-5" /></span>
+          </button>
+        </div>
+      )}
     </div>
   );
 };

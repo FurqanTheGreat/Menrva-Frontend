@@ -24,6 +24,7 @@ const Dashboard = () => {
   const router = useRouter()
   const [chatId, setChatId] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [tags, setTags] = useState<string[]>([]);
 
   const loadingStates = !selectedDocument ? [
     {
@@ -115,11 +116,12 @@ const Dashboard = () => {
     chat_id: string;
     user_id: string;
     mode?: string;
+    tags: string[]
     document?: string | null;
   };
 
   const sendPrompt = async (params: SendPromptParams): Promise<void> => {
-    const { query, chat_id, user_id, mode = "QUERY", document = null } = params;
+    const { query, chat_id, user_id, mode = "QUERY", document = null, tags } = params;
     const token = cookie.get("jwt");
     if (!token) {
       console.error("JWT token is missing");
@@ -130,7 +132,7 @@ const Dashboard = () => {
 
       const aiResponse = await axios.post(
         "http://localhost:8000/prompt",
-        { query, chat_id, user_id, mode, document },
+        { query, chat_id, user_id, mode, document, tags },
         { headers: { Authorization: `${token}` }, responseType: "json" }
       );
 
@@ -139,7 +141,7 @@ const Dashboard = () => {
 
       await axios.post(
         "http://localhost:3002/chat_mng/insert_msg",
-        { chat_id, user_id, user_msg: query, ai_msg: aiMessage },
+        { chat_id, user_id, user_msg: query, ai_msg: aiMessage, tags },
         { headers: { Authorization: `${token}` } }
       );
     } catch (error: any) {
@@ -154,8 +156,12 @@ const Dashboard = () => {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+    if (chatName.startsWith('@')) {
+       setTags([...tags, chatName])
+       setChatName("")
+       return
+    }
     setHid(true);
-
     const userId = await getUserId();
     if (!userId) {
       setResponse("Failed to retrieve User ID. Cannot create chat.");
@@ -189,6 +195,7 @@ const Dashboard = () => {
             user_id: userId,
             chat_id: createdChatId,
             document: selectedDocument,
+            tags: tags,
             mode: selectedDocument ? "reference-document" : "general-query",
           });
         } else {
@@ -201,6 +208,7 @@ const Dashboard = () => {
           user_id: userId,
           chat_id: chatId,
           document: selectedDocument,
+          tags: tags,
           mode: selectedDocument ? "reference-document" : "general-query",
         });
       }
@@ -270,13 +278,16 @@ const Dashboard = () => {
         )}
         {!loading ? (
           <>
-            <div className="w-1/3 flex items-start mt-2">
+            <div className="w-1/3 flex items-start mt-2 gap-1">
             {selectedDocument ? <span className='bg-blue-200 text-blue-400 p-1 text-sm mb-2' style={{
               borderRadius: "5px"
-            }}>{selectedDocument   .replace("documents/", "")
+            }}><small>Document: </small>{selectedDocument   .replace("documents/", "")
               .replace(".pdf", "")
               .replaceAll("_", " ").slice(0, 20) + '...'}</span> : ""}
 
+            {tags.map((tag) => <span className='bg-purple-200 text-purple-400 p-1 text-sm mb-2' style={{
+              borderRadius: "5px"
+            }}><small>Tag: </small>{tag}</span>)}
             </div>
             <PlaceholdersAndVanishInput
             placeholders={placeholders}

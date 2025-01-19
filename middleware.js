@@ -5,7 +5,6 @@ import appConfig from 'components/config'
 export async function middleware(request) {
   try { 
     const cookie = request.cookies.get('jwt')
-    console.log(cookie)
     if (!cookie)
     {
       return NextResponse.redirect(new URL('/account/login', request.url), {
@@ -19,14 +18,17 @@ export async function middleware(request) {
           status: 307
         })
       }
-    const response = await fetch(`${appConfig.backendEndpoint}auth/check-token`, {
+    const response = await fetch(`http://localhost:3002/auth/check-token`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${jwt}`
       }
     })
+    console.log(response)
+
     const status = (response.status)
+    console.log(status)
     const msg = (await response.json())['msg']
 
     if (status !== 200 || msg === 'bad-token') {
@@ -36,7 +38,8 @@ export async function middleware(request) {
     }
     
     return NextResponse.next()
-} catch {
+} catch (error) {
+  console.log(error)
     return NextResponse.redirect(new URL('/account/login', request.url), {
       status: 307
     })

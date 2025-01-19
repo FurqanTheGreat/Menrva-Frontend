@@ -13,6 +13,7 @@ export default function LoginForm() {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [message, setMessage] = useState("");
   const router = useRouter();
+  const [isProcessing, setProcessStatus] = useState(false)
 
   useEffect(() => {
     const {jwt} = cookies()
@@ -27,6 +28,7 @@ export default function LoginForm() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setProcessStatus(true)
     try {
       const registerResponse = await axios.post(
         "http://localhost:3002/auth/login",
@@ -37,6 +39,7 @@ export default function LoginForm() {
       );
       const jwt = registerResponse.data.key
       cookies({ jwt: jwt }, {expires: 7})
+      setProcessStatus(false)
       router.push("/dashboard");
     } catch (error:unknown) { /** Catch clause does not allow types other than unknown and any */
       if (error instanceof AxiosError)
@@ -44,6 +47,7 @@ export default function LoginForm() {
           error.response?.data?.msg || "An error occurred. Please try again."
         );
       console.log(error);
+      setProcessStatus(false)
     }
   };
 
@@ -67,7 +71,7 @@ export default function LoginForm() {
       <div className="bg-gradient-to-r from-transparent via-neutral-700 dark:via-neutral-300 to-transparent my-8 h-[1px] w-full" />
 
             
-      <form className="my-8 text-neutral-800 disabled" onSubmit={handleSubmit}>
+      <form className={`my-8 text-neutral-800 ${isProcessing ? 'blur-lg': ''} transition-all`} onSubmit={handleSubmit}>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="email">Email</Label>
           <Input

@@ -9,10 +9,14 @@ export function PlaceholdersAndVanishInput({
   placeholders,
   onChange,
   onSubmit,
+  onInsertDoc,
+  onReferDoc
 }: {
   placeholders: string[];
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  onInsertDoc: (e: React.TouchEvent<HTMLDivElement>) => void;
+  onReferDoc: (e: React.TouchEvent<HTMLDivElement>) => void;
 }) {
   const [currentPlaceholder, setCurrentPlaceholder] = useState(0);
 
@@ -209,10 +213,10 @@ export function PlaceholdersAndVanishInput({
       />
 
       <div className="absolute bottom-0 left-0 w-full p-2 z-10 flex justify-start items-center">
-        <span className="p-2 text-sm text-gray-400 hover:text-gray-500 cursor-pointer">
-          <FaPaperclip className="inline" /> Insert Document
+        <span className="p-2 text-sm text-gray-400 hover:text-gray-500 cursor-pointer" onClick={onReferDoc}>
+          <FaPaperclip className="inline" /> Reference Document
         </span>
-        <span className="p-2 text-sm text-gray-400 hover:text-gray-500 cursor-pointer">
+        <span className="p-2 text-sm text-gray-400 hover:text-gray-500 cursor-pointer"  onClick={onInsertDoc}>
           <IoDocumentTextOutline className="inline" /> Insert Document
         </span>
       </div>

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import React, { useState, useEffect } from "react";
 import { Sidebar, SidebarBody, SidebarLink } from "@/components/ui/sidebar";
@@ -5,15 +6,18 @@ import {
   IconArrowLeft,
   IconSettings,
   IconUserBolt,
-  IconMessageCircle
+  IconMessageCircle,
+  IconFile
 } from "@tabler/icons-react";
 import Link from "next/link";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import axios from "axios";
 import cookie from "cookiejs";
+import { useRouter } from "next/navigation";
 
 export function Navbar() {
+  const router = useRouter()
   const links = [
     {
       label: "Profile",
@@ -23,15 +27,15 @@ export function Navbar() {
       ),
     },
     {
-      label: "Settings",
-      href: "#",
+      label: "File Manager",
+      href: "/dashboard/filemanager",
       icon: (
-        <IconSettings className="text-neutral-200 h-5 w-5 flex-shrink-0" />
+        <IconFile className="text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
     },
     {
       label: "Logout",
-      href: "#",
+      href: "#logout",
       icon: (
         <IconArrowLeft className="text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
@@ -101,10 +105,6 @@ export function Navbar() {
     getChats();
   }, []);
 
-  const handleChatClick = (chatId: string) => {
-    localStorage.setItem('selectedChatId', chatId);
-  };
-  
   
   return (
     <div
@@ -121,7 +121,7 @@ export function Navbar() {
             <SidebarLink
               link={{
                 label: "Menrva AI",
-                href: "#",
+                href: "/dashboard",
                 icon: (
                   <Image
                     src="/Colorful_Brain_Digital_World_Technology_Logo__3_-removebg-preview.png"
@@ -146,29 +146,32 @@ export function Navbar() {
             ></SidebarLink>
             <div className={`overflow-x-hidden ${open ? 'overflow-y-scroll' : 'overflow-hidden'} fadedScroll z-15 h-1/2`}>
               {chats.length > 0 &&
-                chats.map((chat: any, index: number) => (
+                chats.map((chat: any) => (
                   <SidebarLink
                     key={chat.chat_id}
                     link={{
                       label: chat.chat_name,
-                      href: `#`,
+                      href: `/dashboard?id=${chat.chat_id}`,
                       icon: null,
                     }}
                     className="mt-1 ml-8"
                   />
                 ))}
-              {chats.length < 4 &&
+              {/* {chats.length < 4 &&
                 Array.from({ length: 4 - chats.length }).map((_, index) => (
                   <div
                     key={index}
                     className={`h-6 mt-2 ml-2 ${!open ? 'hidden' : ''} bg-neutral-700 animate-pulse rounded-[5px]`}
                   />
-                ))}
+                ))} */}
             </div>
           </div>
           <div className="mt-8 h-1/3 flex flex-col gap-2">
             {links.map((link, idx) => (
-              <SidebarLink key={idx} link={link} />
+              <SidebarLink key={idx} link={link} {...link.href==='#logout' ? {onClick: () => {
+                cookie.remove('jwt')
+                router.refresh()
+              }} : {}} />
             ))}
           </div>
         </div>

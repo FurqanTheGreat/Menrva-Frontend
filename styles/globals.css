@@ -6,6 +6,10 @@
   all: revert;
 }
 
+div[role=dialog] {
+  outline: none;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

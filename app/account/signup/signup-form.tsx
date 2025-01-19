@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import React from "react";
 import Link from "next/link";
@@ -7,12 +8,13 @@ import { cn } from "@/lib/utils";
 import { useState } from "react";
 import axios from "axios";
 import cookies from 'cookiejs'
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 export default function SignupForm() {
   const [formData, setFormData] = useState({ username: "", email: "", password: "" });
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState<"success" | "error" | "">("");
+  const [isProcessing, setProcessStatus] = useState(false)
   const router = useRouter()
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -20,6 +22,7 @@ export default function SignupForm() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setProcessStatus(true)
     try {
       const registerResponse = await axios.post("http://localhost:3002/auth/register", {
         user_name: formData.username,
@@ -37,6 +40,7 @@ export default function SignupForm() {
         }
       );
       cookies({ jwt: jwt }, {expires: 7}) // TODO: ADD PROPER CONDITIONING 'CAUSE THIS IS A STUPID WAY TO DEAL WITH COOKIES
+    setProcessStatus(false)
       router.push("/dashboard");
 
       setMessage("Registration successful! Please check your email to activate your account.");
@@ -44,7 +48,8 @@ export default function SignupForm() {
     } catch (error: any) {
       setMessage(error.response?.data?.msg || "An error occurred. Please try again.");
       setMessageType("error");
-      console.log(error)
+    setProcessStatus(false)
+    console.log(error)
     }
   };
   
@@ -64,7 +69,7 @@ export default function SignupForm() {
       {message && (<p className={`mt-4 text-center ${ messageType === "success" ? "text-green-700" : "text-red-500" }`}> {message} </p>)}
       <div className="bg-gradient-to-r from-transparent via-neutral-700 dark:via-neutral-300 to-transparent mt-8 h-[1px] w-full" />
 
-      <form className="my-8 text-neutral-800" onSubmit={handleSubmit}>
+      <form className={`my-8 text-neutral-800 ${isProcessing ? 'blur-lg': ''} transition-all`} onSubmit={handleSubmit}>
 
         <LabelInputContainer className="mb-4">
         <Label htmlFor="username">Name</Label>

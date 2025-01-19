@@ -101,7 +101,7 @@ const Dashboard = () => {
         console.log("User ID retrieved successfully:", response.data.user_id);
         return response.data.user_id;
       }
-    } catch (error) {
+    } catch (error: any) {
       if (error.response) {
         console.error("Server error:", error.response.data.msg);
       } else {
@@ -142,7 +142,7 @@ const Dashboard = () => {
         { chat_id, user_id, user_msg: query, ai_msg: aiMessage },
         { headers: { Authorization: `${token}` } }
       );
-    } catch (error) {
+    } catch (error: any) {
       console.error(
         "Error in sendPrompt:",
         error.response?.data || error.message
@@ -204,7 +204,7 @@ const Dashboard = () => {
           mode: selectedDocument ? "reference-document" : "general-query",
         });
       }
-    } catch (error) {
+    } catch (error: any) {
       const errorMessage =
         error.response?.data?.msg || "An unexpected error occurred.";
       setResponse(`Error: ${errorMessage}`);

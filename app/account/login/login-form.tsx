@@ -39,8 +39,8 @@ export default function LoginForm() {
       );
       const jwt = registerResponse.data.key
       cookies({ jwt: jwt }, {expires: 7})
-      setProcessStatus(false)
       router.push("/dashboard");
+      setProcessStatus(false)
     } catch (error:unknown) { /** Catch clause does not allow types other than unknown and any */
       if (error instanceof AxiosError)
         setMessage(

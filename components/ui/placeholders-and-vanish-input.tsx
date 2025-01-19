@@ -15,8 +15,8 @@ export function PlaceholdersAndVanishInput({
   placeholders: string[];
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-  onInsertDoc: (e: React.TouchEvent<HTMLDivElement>) => void;
-  onReferDoc: (e: React.TouchEvent<HTMLDivElement>) => void;
+  onInsertDoc: React.MouseEventHandler<HTMLSpanElement>
+  onReferDoc: React.MouseEventHandler<HTMLSpanElement>
 }) {
   const [currentPlaceholder, setCurrentPlaceholder] = useState(0);
 

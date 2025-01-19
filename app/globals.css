@@ -32,7 +32,9 @@ body {
   background: var(--background);
 }
 
-
+.markdown * {
+  color: #ececec;
+}
 
 .playfair-display {
   font-family: "Playfair Display";

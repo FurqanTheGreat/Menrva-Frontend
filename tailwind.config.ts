@@ -95,7 +95,7 @@ const config = {
       }
     },
   },
-  plugins: [require("tailwindcss-animate"), addVariablesForColors, function ({ matchUtilities, theme }: any) {
+  plugins: [require('@tailwindcss/typography'), require("tailwindcss-animate"), addVariablesForColors, function ({ matchUtilities, theme }: any) {
     matchUtilities(
       {
         "bg-dot-thick": (value: any) => ({

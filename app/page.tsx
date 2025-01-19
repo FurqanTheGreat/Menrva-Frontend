@@ -1,6 +1,6 @@
 "use client"
 import Image from "next/image";
-import { playfairDisplay, sourceSans3 } from "@/config/fonts";
+import { sourceSans3 } from "@/config/fonts";
 import NavBar, { NavListItem } from "@/components/widgets/NavBar";
 import PileOfWindows from "@/components/templates/PileOfWindows";
 import { Vortex } from "@/components/ui/vortex";

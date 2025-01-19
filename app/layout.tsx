@@ -27,7 +27,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head />
       <body
-        className={`antialiased ${playfair.variable} ${inter.variable} ${sourceSans3.variable} overflow-x-hidden`}
+        className={`antialiased ${playfair.variable} ${inter.variable} ${sourceSans3.variable} overflow-x-hidden fadedScroll`}
       >
 
               {children}

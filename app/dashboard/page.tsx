@@ -100,7 +100,7 @@ const Dashboard = () => {
 
       await axios.post(
         "http://localhost:3002/chat_mng/insert_msg",
-        { chat_id, user_id, user_msg: query, ai_msg: aiMessage },
+        { chat_id, user_id, user_msg: query, ai_msg: aiMessage, tags },
         { headers: { Authorization: `Bearer ${token}` } }
       );
     } finally {

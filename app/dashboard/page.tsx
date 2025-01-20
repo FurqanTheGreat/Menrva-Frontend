@@ -3,7 +3,7 @@
 import { sourceSans3 } from "@/config/fonts";
 import { PlaceholdersAndVanishInput } from "@/components/ui/placeholders-and-vanish-input";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import cookie from "cookiejs";
 import Message from "@/components/app_ui/Message";
 import ReactMarkdown from "react-markdown";
@@ -13,6 +13,7 @@ import { useRouter } from "next/navigation";
 import Dialog from "./filemanager/dialog";
 import Avatar from "@/components/ui/avatar";
 import GetUserName from "@/components/api/get-user-name";
+import { DOCUMENT_LOADING_STATES, QUERY_LOADING_STATES } from "@/components/data";
 
 const Dashboard = () => {
   const [chatName, setChatName] = useState("");
@@ -29,60 +30,7 @@ const Dashboard = () => {
   const [tags, setTags] = useState<string[]>([]);
   const [userName, setUsername] = useState("")
 
-  const loadingStates = !selectedDocument ? [
-    {
-      text: "Analyzing your question...",
-    },
-    {
-      text: "Generating Query Keywords...",
-    },
-    {
-      text: "Fetching the best answer...",
-    },
-    {
-      text: "Connecting to the knowledge base...",
-    },
-    {
-      text: "Preparing a response...",
-    },
-    {
-      text: "Summarizing the content...",
-    },
-    {
-      text: "Consulting K-CAT...",
-    },
-    {
-      text: "Consulting the AI model...",
-    },
-    {
-      text: "Generating helpful insights...",
-    },
-  ]: [
-     {
-      text: "Analyzing your question...",
-    },
-    {
-      text: "Generating Query Keywords...",
-    },
-    {
-      text: "Searching the Document...",
-    },
-    {
-      text: "Finding relevent sections...",
-    },
-    {
-      text: "Summarizing the content...",
-    },
-    {
-      text: "Generating response...",
-    },
-    {
-      text: "Consulting K-CAT...",
-    },
-    {
-      text: "Consulting the AI model...",
-    },
-  ];
+  const loadingStates = useMemo(() => !selectedDocument ? QUERY_LOADING_STATES: DOCUMENT_LOADING_STATES, [selectedDocument])
 
   const getUserId = async () => {
     try {

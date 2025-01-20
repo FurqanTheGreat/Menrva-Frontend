@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 import { Sidebar, SidebarBody, SidebarLink } from "@/components/ui/sidebar";
 import {
   IconArrowLeft,
-  IconSettings,
   IconUserBolt,
   IconMessageCircle,
   IconFile

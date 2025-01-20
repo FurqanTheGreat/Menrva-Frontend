@@ -10,7 +10,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { MultiStepLoader as Loader } from "@/components/ui/multi-step-loader";
 import { useRouter } from "next/navigation";
-import Dialog from "./filemanager/dialog";
+import Dialog from "@/components/widgets/Dialog";
 import Avatar from "@/components/ui/avatar";
 import GetUserName from "@/components/api/get-user-name";
 import { DOCUMENT_LOADING_STATES, INPUT_PLACEHOLDERS, QUERY_LOADING_STATES } from "@/components/data";

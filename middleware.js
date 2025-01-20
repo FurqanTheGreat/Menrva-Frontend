@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import appConfig from 'components/config'
+
  
 // This function can be marked `async` if using `await` inside
 export async function middleware(request) {

@@ -1,4 +1,5 @@
-import { useEffect, useMemo, useState } from "react";
+"use client"
+import { useEffect, useState } from "react";
 import { IconSquareRoundedX } from "@tabler/icons-react";
 
 interface DialogProps {
@@ -40,7 +41,7 @@ const Dialog = (props: DialogProps) => {
 
         <h1 className="text-2xl">Your Documents</h1>
         <hr />
-        <p>Following are some of the publicly available documents for users.</p>
+        <p>Following are some of the publicly available documents for users (See <span className='text-blue-600 hover:underline cursor-pointer'>policy</span> for more info).</p>
         <p>All documents here are tested and secure in all ways:</p>
         <ul className="list-disc ml-5">
           {docs.map((value: string, key) => (

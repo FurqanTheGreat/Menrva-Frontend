@@ -1,3 +1,4 @@
+"use client"
 interface LoadingState {
     text: string
 }

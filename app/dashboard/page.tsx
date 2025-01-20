@@ -305,7 +305,7 @@ const Dashboard = () => {
                 {selectedDocument.replace("documents/", "").replace(".pdf", "").replaceAll("_", " ").slice(0, 20) + '...'}
               </div>
             ) : ""}
-            {tags.map((tag) => <span className='bg-purple-200 text-purple-400 p-1 text-sm mb-2' style={{
+            {tags.map((tag, key) => <span key={key} className='bg-purple-200 text-purple-400 p-1 text-sm mb-2' style={{
               borderRadius: "5px"
             }}><small>Tag: </small>{tag}</span>)}
             </div>

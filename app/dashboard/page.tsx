@@ -14,6 +14,7 @@ import Dialog from "./filemanager/dialog";
 import Avatar from "@/components/ui/avatar";
 import GetUserName from "@/components/api/get-user-name";
 import { DOCUMENT_LOADING_STATES, INPUT_PLACEHOLDERS, QUERY_LOADING_STATES } from "@/components/data";
+import Image from "next/image";
 
 interface SendPromptParams {
   query: string;
@@ -48,7 +49,7 @@ const Dashboard = () => {
       setUsername(res);
     })();
   }, []);
-  
+
   const getUserId = async () => {
     try {
       const token = cookie.get("jwt");
@@ -212,7 +213,7 @@ const Dashboard = () => {
                 div= {false}
                 divVal={
                   msg.sender === "ai"
-                  ? <img
+                  ? <Image
                   src={"/Colorful_Brain_Digital_World_Technology_Logo__3_-removebg-preview.png"}
                   alt="Avatar"
                   className="w-10 h-10 rounded-full object-cover"
@@ -253,7 +254,7 @@ const Dashboard = () => {
               borderRadius: "5px"
             }}><small>Tag: </small>{tag}</span>)}
             </div>
-            <PlaceholdersAndVanishInput
+          <PlaceholdersAndVanishInput
             placeholders={placeholders}
             onChange={(e) => setChatName(e.target.value)}
             onSubmit={handleSubmit}

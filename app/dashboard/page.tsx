@@ -50,6 +50,7 @@ const Dashboard = () => {
     })();
   }, []);
 
+  /** TODO: Change location! */
   const getUserId = async () => {
     try {
       const token = cookie.get("jwt");

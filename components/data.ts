@@ -61,4 +61,13 @@ const QUERY_LOADING_STATES:LoadingStates = [
   },
 ];
 
-export { QUERY_LOADING_STATES, DOCUMENT_LOADING_STATES };
+
+const INPUT_PLACEHOLDERS: string[] = [
+  "Explain the significance of golgi bodies.",
+  "What was the significance of the subcontinent in WW2.",
+  "Would the british have ?",
+  "Write a Javascript method to reverse a string",
+  "How to assemble your own PC?",
+];
+
+export { QUERY_LOADING_STATES, DOCUMENT_LOADING_STATES, INPUT_PLACEHOLDERS };

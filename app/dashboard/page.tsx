@@ -13,7 +13,17 @@ import { useRouter } from "next/navigation";
 import Dialog from "./filemanager/dialog";
 import Avatar from "@/components/ui/avatar";
 import GetUserName from "@/components/api/get-user-name";
-import { DOCUMENT_LOADING_STATES, QUERY_LOADING_STATES } from "@/components/data";
+import { DOCUMENT_LOADING_STATES, INPUT_PLACEHOLDERS, QUERY_LOADING_STATES } from "@/components/data";
+
+interface SendPromptParams {
+  query: string;
+  chat_id: string;
+  user_id: string;
+  mode?: string;
+  tags: string[]
+  document?: string | null;
+};
+
 
 const Dashboard = () => {
   const [chatName, setChatName] = useState("");
@@ -32,6 +42,13 @@ const Dashboard = () => {
 
   const loadingStates = useMemo(() => !selectedDocument ? QUERY_LOADING_STATES: DOCUMENT_LOADING_STATES, [selectedDocument])
 
+  useEffect(() => {
+    (async () => {
+      const res = await GetUserName();
+      setUsername(res);
+    })();
+  }, []);
+  
   const getUserId = async () => {
     try {
       const token = cookie.get("jwt");
@@ -61,21 +78,6 @@ const Dashboard = () => {
     }
   };
 
-  useEffect(() => {
-    (async () => {
-      const res = await GetUserName();
-      setUsername(res);
-    })();
-  }, []);
-
-  type SendPromptParams = {
-    query: string;
-    chat_id: string;
-    user_id: string;
-    mode?: string;
-    tags: string[]
-    document?: string | null;
-  };
 
   const sendPrompt = async (params: SendPromptParams): Promise<void> => {
     const { query, chat_id, user_id, mode = "QUERY", document = null, tags } = params;
@@ -172,13 +174,7 @@ const Dashboard = () => {
     }
   };
 
-  const placeholders = [
-    "Explain the significance of golgi bodies.",
-    "What was the significance of the subcontinent in WW2.",
-    "Would the british have ?",
-    "Write a Javascript method to reverse a string",
-    "How to assemble your own PC?",
-  ];
+  const placeholders = INPUT_PLACEHOLDERS
 
   return (
     <div className={`flex flex-row w-full h-full ${sourceSans3.className}`}>

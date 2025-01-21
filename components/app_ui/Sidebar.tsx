@@ -17,6 +17,8 @@ import { useRouter, usePathname } from "next/navigation";
 import GetUserName from "../api/get-user-name";
 import Avatar from "../ui/avatar";
 import { useSearchParams } from 'next/navigation';
+import GetChats from "../api/get-chats";
+import DelChat from "../api/del_chat";
 
 export function Navbar() {
   const router = useRouter()
@@ -57,65 +59,14 @@ export function Navbar() {
   const [chats, setChats] = useState([]);
   const [userName, setUsername] = useState("")
 
-  const getUserId = async () => {
-  
-    try {
-      const token = cookie.get('jwt') // Retrieve the JWT token from storage
-      if (!token) {
-        console.error("No JWT token found");
-        return;
-      }
-  
-      const response = await axios.get("http://localhost:3002/auth/get-user-id", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-  
-      if (response.status === 200) {
-        console.log("User ID retrieved successfully:", response.data.user_id);
-        return response.data.user_id;
-      }
-    } catch (error: any) {
-      if (error.response) {
-        console.error("Server error:", error.response.data.msg);
-      } else {
-        console.error("Request error:", error.message);
-      }
-    }
-  };
-
-  const getChats = async () => {
-    const userId = await getUserId();
-    if (userId) {
-      try {
-        const token = cookie.get('jwt') // Retrieve the JWT token from storage
-      if (!token) {
-        console.error("No JWT token found");
-        return;
-      }
-      const response = await axios.post(
-        "http://localhost:3002/chat_mng/get_chats", 
-        { user_id: userId }, // Request body
-        { 
-          headers: {
-            Authorization: `Bearer ${token}`,
-          }
-        }
-      );
-        if (response.status === 200) {
-          setChats(response.data.chats); // Set chats to state
-        } else {
-          console.error(response.data.msg)
-        }
-      } catch (error) {
-        console.error("Failed to fetch chats:", error);
-      }
-    }
-  };
-
   useEffect(() => {
-    getChats();
+    const fetchChats = async () => {
+      const chatss = await GetChats();
+      if (chatss) {
+        setChats(chatss);
+      }
+    };
+    fetchChats();
   }, []);
 
   
@@ -145,6 +96,7 @@ export function Navbar() {
                 ),
               }}
               className="mt-4"
+              isChat= {false}
               onClick={() => {
                 if (pathname !== '/dashboard') {
                   router.replace('/dashboard');
@@ -162,9 +114,10 @@ export function Navbar() {
                   <IconMessageCircle className="text-neutral-200 h-5 w-5 flex-shrink-0" />
                 ),
               }}
+              isChat= {false}
               className="mt-1"
             ></SidebarLink>
-            <div className={`overflow-x-hidden ${open ? 'overflow-y-scroll' : 'overflow-hidden'} fadedScroll z-15 h-1/2`}>
+            <div className={`overflow-x-hidden ${open ? 'overflow-y-scroll' : 'overflow-hidden'} fadedScroll z-15 h-1/2`}>           
               {chats.length > 0 &&
                 chats.map((chat: any) => (
                   <SidebarLink
@@ -174,10 +127,12 @@ export function Navbar() {
                       href: `/dashboard?id=${chat.chat_id}`,
                       icon: null,
                     }}
+                    isChat= {true}
                     className="mt-1 ml-8"
+                    chatId={chat.chat_id}
                   />
                 ))}
-              {chats.length < 4 &&
+              {chats.length < 1 &&
                 Array.from({ length: 4 - chats.length }).map((_, index) => (
                   <div
                     key={index}
@@ -187,8 +142,8 @@ export function Navbar() {
             </div>
           </div>
           <div className="mt-8 h-1/3 flex flex-col gap-2">
-            {links.map((link, idx) => (
-              <SidebarLink key={idx} link={link} {...link.href==='#logout' ? {onClick: () => {
+            {links.map((link: any, idx: any) => (
+              <SidebarLink isChat= {false} key={idx} link={link} {...link.href==='#logout' ? {onClick: () => {
                 cookie.remove('jwt')
                 router.refresh()
               }} : {}} />

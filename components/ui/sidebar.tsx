@@ -3,7 +3,9 @@ import { cn } from "@/lib/utils";
 import Link, { LinkProps } from "next/link";
 import React, { useState, createContext, useContext } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { IconMenu2, IconX } from "@tabler/icons-react";
+import { IconMenu2, IconX, IconTrash } from "@tabler/icons-react";
+import DelChat from "../api/del_chat";
+import { useRouter } from "next/navigation";
 
 interface Links {
   label: string;
@@ -159,35 +161,65 @@ export const SidebarLink = ({
   link,
   className,
   onClick,
+  isChat,
+  chatId,
   ...props
 }: {
   link: Links;
   className?: string;
   props?: LinkProps;
   onClick?: any;
+  chatId?: any;
+  isChat: boolean;
 }) => {
+  const router = useRouter();
   const { open, animate } = useSidebar();
   return (
-    <Link
-      href={link.href}
+    <div
       className={cn(
-        "flex items-center justify-start gap-2  group/sidebar py-2",
+        "relative flex items-center group/sidebar-link",
         className
       )}
-      onClick={onClick}
-      {...props}
     >
-      {link.icon}
-
-      <motion.span
-        animate={{
-          display: animate ? (open ? "inline-block" : "none") : "inline-block",
-          opacity: animate ? (open ? 1 : 0) : 1,
-        }}
-        className="text-neutral-200 text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0"
+      <Link
+        href={link.href}
+        className="flex items-center justify-start gap-2 py-2 flex-grow"
+        onClick={onClick}
+        {...props}
       >
-        {link.label}
-      </motion.span>
-    </Link>
+        {link.icon}
+
+        <motion.span
+          animate={{
+            display: animate
+              ? open
+                ? "inline-block"
+                : "none"
+              : "inline-block",
+            opacity: animate ? (open ? 1 : 0) : 1,
+          }}
+          className="text-neutral-200 text-sm group-hover/sidebar-link:translate-x-1 transition duration-150 whitespace-nowrap overflow-hidden text-ellipsis max-w-full !p-0 !m-0"
+          style={{
+            display: "inline-block",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            whiteSpace: "nowrap",
+          }}
+        >
+          {link.label}
+        </motion.span>
+      </Link>
+
+      <IconTrash className={`absolute w-5 h-5 right-2 opacity-0 cursor-pointer group-hover/sidebar-link:opacity-100 ${!isChat ? 'hidden' : ''} transition-opacity text-white hover:text-red-700` } 
+      onClick={(e) => {
+        e.stopPropagation();
+        DelChat(chatId);
+        window.location.reload();
+      }
+      }
+        />
+    </div>
   );
 };
+
+

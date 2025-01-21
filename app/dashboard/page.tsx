@@ -3,7 +3,7 @@
 import { sourceSans3 } from "@/config/fonts";
 import { PlaceholdersAndVanishInput } from "@/components/ui/placeholders-and-vanish-input";
 import axios from "axios";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import cookie from "cookiejs";
 import Message from "@/components/app_ui/Message";
 import ReactMarkdown from "react-markdown";
@@ -18,6 +18,7 @@ import GetMessages from "@/components/api/get-messages";
 import { DOCUMENT_LOADING_STATES, INPUT_PLACEHOLDERS, QUERY_LOADING_STATES } from "@/components/data";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
+import { sendPromptReqeust } from "@/components/api/send-prompt";
 
 interface SendPromptParams {
   query: string;
@@ -54,36 +55,7 @@ const Dashboard = () => {
       setUsername(res);
     })();
   }, []);
-
-  const sendPrompt = async (params: SendPromptParams): Promise<void> => {
-    const { query, chat_id, user_id, mode = "QUERY", document = null, tags } = params;
-    const token = cookie.get("jwt");
-    if (!token) {
-      console.error("JWT token is missing");
-      return;
-    }
-    try {
-      setLoading(true);
-
-      const aiResponse = await axios.post(
-        "http://localhost:8000/prompt",
-        { query, chat_id, user_id, mode, document, tags },
-        { headers: { Authorization: `${token}` }, responseType: "json" }
-      );
-
-      const aiMessage = aiResponse.data;
-      setMessages((prev) => [...prev, { sender: "ai", content: aiMessage }]);
-
-      await axios.post(
-        "http://localhost:3002/chat_mng/insert_msg",
-        { chat_id, user_id, user: query, ai: aiMessage, tags },
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-    } finally {
-      setLoading(false);
-    }
-  };
-
+  
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     if (chatName.startsWith('@')) {
@@ -120,26 +92,32 @@ const Dashboard = () => {
             { sender: "user", content: chatName },
           ]);
 
-          sendPrompt({
+          sendPromptReqeust({
             query: chatName,
             user_id: userId,
             chat_id: createdChatId,
             document: selectedDocument,
             tags: tags,
             mode: selectedDocument ? "reference-document" : "general-query",
+            onRequestStart: () => setLoading(true),
+            onRequestEnd: () => setLoading(false),
+            onRequestDataRetention: (aiMessage) => setMessages((prev) => [...prev, { sender: "ai", content: aiMessage }]),
           });
         } else {
           console.error(res.data.msg);
         }
       } else {
         setMessages((prev) => [...prev, { sender: "user", content: chatName }]);
-        sendPrompt({
+        sendPromptReqeust({
           query: chatName,
           user_id: userId,
           chat_id: chatId,
           document: selectedDocument,
           tags: tags,
           mode: selectedDocument ? "reference-document" : "general-query",
+          onRequestStart: () => setLoading(true),
+          onRequestEnd: () => setLoading(false),
+          onRequestDataRetention: (aiMessage) => setMessages((prev) => [...prev, { sender: "ai", content: aiMessage }]),
         });
       }
     } catch (error: any) {

@@ -13,8 +13,11 @@ import { useRouter } from "next/navigation";
 import Dialog from "@/components/widgets/Dialog";
 import Avatar from "@/components/ui/avatar";
 import GetUserName from "@/components/api/get-user-name";
+import GetUserId from "@/components/api/get-user-id";
+import GetMessages from "@/components/api/get-messages";
 import { DOCUMENT_LOADING_STATES, INPUT_PLACEHOLDERS, QUERY_LOADING_STATES } from "@/components/data";
 import Image from "next/image";
+import { useSearchParams } from "next/navigation";
 
 interface SendPromptParams {
   query: string;
@@ -27,6 +30,7 @@ interface SendPromptParams {
 
 
 const Dashboard = () => {
+  const searchParams = useSearchParams();
   const [chatName, setChatName] = useState("");
   const [showDialog, setShowDialog] = useState(false);
   const [response, setResponse] = useState<string | null>(null);
@@ -39,7 +43,8 @@ const Dashboard = () => {
   const [chatId, setChatId] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [tags, setTags] = useState<string[]>([]);
-  const [userName, setUsername] = useState("")
+  const [userName, setUsername] = useState("");
+  const id = searchParams.get('id');
 
   const loadingStates = useMemo(() => !selectedDocument ? QUERY_LOADING_STATES: DOCUMENT_LOADING_STATES, [selectedDocument])
 
@@ -49,37 +54,6 @@ const Dashboard = () => {
       setUsername(res);
     })();
   }, []);
-
-  /** TODO: Change location! */
-  const getUserId = async () => {
-    try {
-      const token = cookie.get("jwt");
-      if (!token) {
-        console.error("No JWT token found");
-        return;
-      }
-
-      const response = await axios.get(
-        "http://localhost:3002/auth/get-user-id",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (response.status === 200) {
-        return response.data.user_id;
-      }
-    } catch (error: any) {
-      if (error.response) {
-        console.error("Server error:", error.response.data.msg);
-      } else {
-        console.error("Request error:", error.message);
-      }
-    }
-  };
-
 
   const sendPrompt = async (params: SendPromptParams): Promise<void> => {
     const { query, chat_id, user_id, mode = "QUERY", document = null, tags } = params;
@@ -102,7 +76,7 @@ const Dashboard = () => {
 
       await axios.post(
         "http://localhost:3002/chat_mng/insert_msg",
-        { chat_id, user_id, user_msg: query, ai_msg: aiMessage, tags },
+        { chat_id, user_id, user: query, ai: aiMessage, tags },
         { headers: { Authorization: `Bearer ${token}` } }
       );
     } finally {
@@ -118,7 +92,7 @@ const Dashboard = () => {
        return
     }
     setHid(true);
-    const userId = await getUserId();
+    const userId = await GetUserId();
     if (!userId) {
       setResponse("Failed to retrieve User ID. Cannot create chat.");
       return;
@@ -176,6 +150,38 @@ const Dashboard = () => {
     }
   };
 
+  useEffect(() => {
+    if (id) {
+      setHid(true);
+      setChatId(id);
+      const fetchMessages = async () => {
+        const userId = await GetUserId();
+        if (!userId) {
+          setResponse("Failed to retrieve User ID. Cannot retrieve messages.");
+          return;
+        }
+  
+        const messagess = await GetMessages(id, userId);
+        if (!messagess) {
+          setResponse("Failed to retrieve Messages.");
+          return;
+        }
+
+        const formatedMessages = messagess.flatMap((msg: any) => [
+          msg.user && { sender: "user", content: msg.user},
+          msg.ai && {sender: "ai", content: msg.ai },
+        ].filter(Boolean))
+        setMessages(formatedMessages);
+      };
+      
+      fetchMessages();
+    } else {
+      setHid(false);
+      setMessages([]);
+      setChatId("");
+    }
+  }, [id]);
+
   const placeholders = INPUT_PLACEHOLDERS
 
   return (
@@ -218,6 +224,8 @@ const Dashboard = () => {
                   src={"/Colorful_Brain_Digital_World_Technology_Logo__3_-removebg-preview.png"}
                   alt="Avatar"
                   className="w-10 h-10 rounded-full object-cover"
+                  width={10}
+                  height={10}
                 />
                   : <Avatar name={userName} size={30} />}
               />

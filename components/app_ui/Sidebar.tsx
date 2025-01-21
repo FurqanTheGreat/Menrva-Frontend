@@ -16,10 +16,12 @@ import cookie from "cookiejs";
 import { useRouter, usePathname } from "next/navigation";
 import GetUserName from "../api/get-user-name";
 import Avatar from "../ui/avatar";
+import { useSearchParams } from 'next/navigation';
 
 export function Navbar() {
   const router = useRouter()
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const links = [
     {
       label: "Profile",
@@ -143,7 +145,14 @@ export function Navbar() {
                 ),
               }}
               className="mt-4"
-              onClick={() => pathname === '/dashboard' ? window.location.reload() : router.replace('/dashboard')}
+              onClick={() => {
+                if (pathname !== '/dashboard') {
+                  router.replace('/dashboard');
+                  window.location.reload();
+                } else {
+                  router.replace('/dashboard');
+                }
+              }}
             ></SidebarLink>
             <SidebarLink
               link={{

@@ -12,11 +12,12 @@ const GetChats = async () => {
         return;
       }
       const response = await axios.post(
-        "http://localhost:3002/chat_mng/get_chats", 
+        "https://pegasus-loyal-mostly.ngrok-free.app/chat_mng/get_chats", 
         { user_id: userId },
         { 
           headers: {
             Authorization: `Bearer ${token}`,
+               'ngrok-skip-browser-warning': 'true'
           }
         }
       );

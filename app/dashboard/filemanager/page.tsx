@@ -16,7 +16,10 @@ const File = () => {
         const file = f!
         const formData = initFormData(file[0])
         setLoading(true)
-        fetch('http://localhost:8000/uploadpdf', {
+        fetch('https://bee-national-rationally.ngrok-free.app/uploadpdf', {
+            headers: {
+                 'ngrok-skip-browser-warning': 'true'
+            },
             method : "POST",
             body: formData
         }).then((v) =>  v.json()).then((v) => {

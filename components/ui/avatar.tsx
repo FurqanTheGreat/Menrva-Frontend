@@ -12,6 +12,7 @@ const Avatar: React.FC<AvatarProps> = ({
   size = 50,
 }) => {
   const getInitials = (fullName: string) => {
+    try {
     const nameParts = fullName.trim().split(" ");
     if (nameParts.length === 1) {
       return nameParts[0]?.charAt(0).toUpperCase() || "";
@@ -20,6 +21,9 @@ const Avatar: React.FC<AvatarProps> = ({
       nameParts[0]?.charAt(0).toUpperCase() +
       nameParts[1]?.charAt(0).toUpperCase()
     );
+  } catch {
+    return "NU"
+  }
   };
 
   const initials = getInitials(name);

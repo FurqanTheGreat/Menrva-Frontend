@@ -18,7 +18,7 @@ export async function middleware(request) {
           status: 307
         })
       }
-    const response = await fetch(`http://localhost:3002/auth/check-token`, {
+    const response = await fetch(`https://pegasus-loyal-mostly.ngrok-free.app/auth/check-token`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

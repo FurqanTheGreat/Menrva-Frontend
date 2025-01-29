@@ -24,7 +24,7 @@ export default function SignupForm() {
     e.preventDefault();
     setProcessStatus(true)
     try {
-      const registerResponse = await axios.post("http://localhost:3002/auth/register", {
+      const registerResponse = await axios.post("https://pegasus-loyal-mostly.ngrok-free.app/auth/register", {
         user_name: formData.username,
         email: formData.email,
         password: formData.password,
@@ -33,10 +33,10 @@ export default function SignupForm() {
       const jwt = registerResponse.data.key;
       
       await axios.post(
-        "http://localhost:3002/auth/send-email",
+        "https://pegasus-loyal-mostly.ngrok-free.app/auth/send-email",
         {},
         {
-          headers: { Authorization: jwt },
+          headers: { Authorization: jwt,    'ngrok-skip-browser-warning': 'true' },
         }
       );
       cookies({ jwt: jwt }, {expires: 7}) // TODO: ADD PROPER CONDITIONING 'CAUSE THIS IS A STUPID WAY TO DEAL WITH COOKIES

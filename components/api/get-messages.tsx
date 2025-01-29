@@ -10,9 +10,9 @@ const GetMessages = async (chatId: string, userId: string) => {
         }
     
         const response = await axios.post(
-          "http://localhost:3002/chat_mng/get_messages",
+          "https://pegasus-loyal-mostly.ngrok-free.app/chat_mng/get_messages",
           { chat_id: chatId, user_id: userId },
-          { headers: { Authorization: `Bearer ${token}` } }
+          { headers: { Authorization: `Bearer ${token}`,    'ngrok-skip-browser-warning': 'true' } }
         );
     
         if (response.status === 200) {

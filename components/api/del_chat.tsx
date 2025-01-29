@@ -13,11 +13,12 @@ const DelChat = async (chatId: any) => {
       }
 
       const response = await axios.post(
-        "http://localhost:3002/chat_mng/del_chat", 
+        "https://pegasus-loyal-mostly.ngrok-free.app/chat_mng/del_chat", 
         { user_id: userId, chat_id: chatId },
         { 
           headers: {
             Authorization: `Bearer ${token}`,
+               'ngrok-skip-browser-warning': 'true'
           }
         }
       );

@@ -11,10 +11,11 @@ const GetUserName = async () => {
       }
 
       const response = await axios.get(
-        "http://localhost:3002/auth/get-user-name",
+        "https://pegasus-loyal-mostly.ngrok-free.app/auth/get-user-name",
         {
           headers: {
             Authorization: `Bearer ${token}`,
+               'ngrok-skip-browser-warning': 'true'
           },
         }
       );

@@ -79,9 +79,9 @@ const Dashboard = () => {
 
       if (!chatId) {
         const res = await axios.post(
-          "http://localhost:3002/chat_mng/create_chat",
+          "https://pegasus-loyal-mostly.ngrok-free.app/chat_mng/create_chat",
           { chat_name: chatName, user_id: userId },
-          { headers: { Authorization: `Bearer ${token}` } }
+          { headers: { Authorization: `Bearer ${token}`,    'ngrok-skip-browser-warning': 'true' } }
         );
 
         if (res.status === 200) {
@@ -215,7 +215,7 @@ const Dashboard = () => {
         {!hid && (
           <div className="w-full">
             <p className="text-5xl text-[#b6b6b6] w-full text-center">
-              {`Hi there, ${userName}`}
+              {`Hi there, ${userName ?? "New User"}`}
             </p>
             <br />
             <p className="text-3xl text-center mb-8">What can I help with?</p>

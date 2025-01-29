@@ -32,7 +32,7 @@ const sendPromptReqeust = async (params: SendPromptParams): Promise<void> => {
   }
 
   const headers: AxiosRequestConfig = {
-    headers: { Authorization: `Bearer ${token}` },
+    headers: { Authorization: `Bearer ${token}`,   'ngrok-skip-browser-warning': 'true' },
     responseType: "json",
   };
    
@@ -40,7 +40,7 @@ const sendPromptReqeust = async (params: SendPromptParams): Promise<void> => {
     params.onRequestStart();
 
     const aiResponse = await axios.post(
-      "http://localhost:8000/prompt",
+      "https://bee-national-rationally.ngrok-free.app/prompt",
       { query, chat_id, user_id, mode, document, tags },
       headers
     );
@@ -50,7 +50,7 @@ const sendPromptReqeust = async (params: SendPromptParams): Promise<void> => {
     // setMessages((prev) => [...prev, { sender: "ai", content: aiMessage }]);
 
     await axios.post(
-      "http://localhost:3002/chat_mng/insert_msg",
+      "https://pegasus-loyal-mostly.ngrok-free.app/chat_mng/insert_msg",
       { chat_id, user_id, user: query, ai: aiMessage, tags },
       headers
     );

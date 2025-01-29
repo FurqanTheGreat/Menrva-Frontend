@@ -31,7 +31,7 @@ export default function LoginForm() {
     setProcessStatus(true)
     try {
       const registerResponse = await axios.post(
-        "http://localhost:3002/auth/login",
+        "https://pegasus-loyal-mostly.ngrok-free.app/auth/login",
         {
           email: formData.email,
           password: formData.password,

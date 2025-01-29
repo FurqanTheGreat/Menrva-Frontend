@@ -12,7 +12,7 @@ interface NavBarProps {
 }
 const NavBar = (props: NavBarProps) => {
   return (
-    <nav className={` flex no-underline mt-4 m-auto bg-black hidden w-[76%] xl:w-2/3 backdrop-blur-sm h-fit rounded-[10px] text-white font-sm justify-between items-center py-1 text-md md:border border-[#454545] px-2 sm:fixed z-20 overflow-x-hidden `}>
+    <nav className={` no-underline mt-4 m-auto bg-black hidden md:flex w-[76%] xl:w-2/3 backdrop-blur-sm h-fit rounded-[10px] text-white font-sm justify-between items-center py-1 text-md md:border border-[#454545] px-2 fixed z-20 overflow-x-hidden `}>
       <div className=" hidden sm:flex text-sm justify-center w-1/2 lg:w-[10%] "><Image src="/Colorful_Brain_Digital_World_Technology_Logo__3_-removebg-preview.png" alt="Microsoft Icon" width={40} height={40} /></div>
       <ul className="hidden lg:flex text-white bg-transparent max-w-fit w-[70%] text-sm justify-center items-center space-x-10 px-[75px] inset-x-0">
         {props.items.map((item) => (

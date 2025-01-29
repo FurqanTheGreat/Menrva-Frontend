@@ -34,7 +34,7 @@ interface MessageProps {
             </span>
             {/* Message Bubble */}
             <div
-              className={`m-2 justify-start items-start bg-gradient-to-b bg-[#71717a46] p-2 rounded-[20px] px-4 py-4 w-fit max-w-[800px] self-end ${
+              className={`m-2 justify-start items-start bg-gradient-to-b bg-[#71717a46] p-2 rounded-[20px] px-4 py-4 w-fit max-w-[1000px] self-end ${
                 isSender
                   ? "bg-[#71717a46] text-white rounded-tr-none"
                   : "bg-[#71717a46] text-gray-200 rounded-tl-none"

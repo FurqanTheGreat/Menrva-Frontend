@@ -38,7 +38,7 @@ export default function Home() {
       </main>
 
       <div
-        className={` min-h-screen sm:mb-[100px] p-[50px] overflow-hidden ${sourceSans3.className} `}
+        className={` min-h-screen sm:mb-[100px] md:p-[50px] overflow-hidden ${sourceSans3.className} `}
       >
        <Vortex
         backgroundColor="black"
@@ -62,7 +62,7 @@ export default function Home() {
             AI Solutions
           </h1>
           <hr className=" mt-[35px] mb-[35px] w-[60%] " />
-          <Link href={"/account/signup"}>
+          <Link href={"/account/login"}>
           <button className={`bg-[#C87500] bg-opacity-70 hover:bg-[#ad7527] p-[20px] transition-all w-fit text-white text-[20px] py-2 px-6 rounded-[10px]`}>
             Get Started
           </button>

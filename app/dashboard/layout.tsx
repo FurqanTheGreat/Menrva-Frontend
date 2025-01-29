@@ -9,7 +9,7 @@ export default function RootLayout({
   return (
     <Suspense>
       <div className="flex flex-row w-full h-screen" suppressHydrationWarning>
-        <div className=" w-fit h-screen rounded-r-md ">
+        <div className=" w-fit h-screen absolute md:relative rounded-r-md ">
           <Navbar />
         </div>
           <div className=" w-full h-full">

@@ -171,7 +171,7 @@ const Dashboard = () => {
         }`}
       >
         {hid ? (
-          <div className="flex flex-col p-10 overflow-auto bg-[#27272aa8] z-10 h-full w-full fadedScroll rounded-lg rounded-b-none relative">
+          <div className="flex flex-col md:p-10 p-0 overflow-auto bg-[#27272aa8] z-10 h-full w-full fadedScroll rounded-lg rounded-b-none relative">
             <Loader loading={loading} loadingStates={loadingStates} />
             {messages.map((msg, index) => (
               <Message

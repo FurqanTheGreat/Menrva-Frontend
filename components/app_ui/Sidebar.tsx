@@ -71,12 +71,6 @@ export function Navbar() {
 
   
   return (
-    <div
-      className={cn(
-        "rounded-md flex flex-col md:flex-row bg-neutral-800 w-full flex-1 max-w-7xl mx-auto border border-neutral-700 overflow-hidden",
-        "h-screen"
-      )}
-    >
       <Sidebar open={open} setOpen={setOpen}>
         <SidebarBody className="justify-between gap-10">
         <div className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
@@ -152,7 +146,6 @@ export function Navbar() {
         </div>
         </SidebarBody>
       </Sidebar>
-    </div>
   );
 }
 export const Logo = (props: any) => {

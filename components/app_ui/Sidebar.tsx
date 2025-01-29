@@ -16,14 +16,14 @@ import cookie from "cookiejs";
 import { useRouter, usePathname } from "next/navigation";
 import GetUserName from "../api/get-user-name";
 import Avatar from "../ui/avatar";
-import { useSearchParams } from 'next/navigation';
+// import { useSearchParams } from 'next/navigation';
 import GetChats from "../api/get-chats";
 import DelChat from "../api/del_chat";
 
 export function Navbar() {
   const router = useRouter()
   const pathname = usePathname();
-  const searchParams = useSearchParams();
+  // const searchParams = useSearchParams();
   const links = [
     {
       label: "Profile",

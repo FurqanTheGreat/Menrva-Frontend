@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { Navbar } from "../../components/app_ui/Sidebar";
 
 export default function RootLayout({
@@ -6,11 +7,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="flex flex-row w-full h-screen" suppressHydrationWarning>
-      <div className=" w-fit h-screen rounded-r-md ">
-        <Navbar />
+    <Suspense>
+      <div className="flex flex-row w-full h-screen" suppressHydrationWarning>
+        <div className=" w-fit h-screen rounded-r-md ">
+          <Navbar />
+        </div>
+          <div className=" w-full h-full">
+                {children}
+            </div>
       </div>
-      <div className=" w-full h-full">{children}</div>
-    </div>
+    </Suspense>
   );
 }

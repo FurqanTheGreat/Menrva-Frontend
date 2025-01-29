@@ -13,7 +13,11 @@ const Dialog = (props: DialogProps) => {
 
   useEffect(() => {
     (async () => {
-      const req = await fetch("https://bee-national-rationally.ngrok-free.app/documents");
+      const req = await fetch("https://bee-national-rationally.ngrok-free.app/documents", {
+        headers: {
+          'ngrok-skip-browser-warning': 'true'
+        }
+      });
       const documents = await req.json();
       setDocs(documents["data"]);
     })();
